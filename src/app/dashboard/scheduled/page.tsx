@@ -1,7 +1,9 @@
-import { getAllTasks } from "@/app/lib/tasks-api"
+import TodoContainer from '@/app/ui/scheduled/todo-container';
 
-export default async function Page () {
-    const myTasks = await getAllTasks()
-    console.log("HERE ARE MA' TASKS BOI!", myTasks)
-    return <div>Scheduled page</div>
+export default async function Page() {
+  return (
+    <div>
+      <TodoContainer />
+    </div>
+  );
 }
