@@ -6,7 +6,7 @@ export default async function TodoContainer() {
   const fetchedTodos = await getAllTasks();
 
   return (
-    <div>
+    <div className='flex flex-col gap-3'>
       {fetchedTodos.map((todo: Todo) => {
         return <TodoCard key={todo.id} {...todo} />;
       })}
