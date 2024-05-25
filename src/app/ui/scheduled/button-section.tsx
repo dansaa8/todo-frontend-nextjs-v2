@@ -5,7 +5,7 @@ import HamburgerIcon from '../svg/hamburger-icon';
 
 export default function ButtonSection() {
   return (
-    <div className="border rounded-lg flex justify-around">
+    <section className="flex justify-around mb-4 mt-2">
       <IconButton>
         <InfoIcon />
       </IconButton>
@@ -15,6 +15,6 @@ export default function ButtonSection() {
       <IconButton>
         <HamburgerIcon />
       </IconButton>
-    </div>
+    </section>
   );
 }

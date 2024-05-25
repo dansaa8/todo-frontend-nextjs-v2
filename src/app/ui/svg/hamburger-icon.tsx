@@ -1,8 +1,8 @@
 export default function HamburgerIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
-      width="30"
-      height="30"
+      width="44"
+      height="44"
       viewBox="0 0 30 30"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
