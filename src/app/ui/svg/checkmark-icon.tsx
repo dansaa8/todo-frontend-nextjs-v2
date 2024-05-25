@@ -1,4 +1,4 @@
-export default function HamburgerIcon(props: React.SVGProps<SVGSVGElement>) {
+export default function CheckMarkIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       width="28"
