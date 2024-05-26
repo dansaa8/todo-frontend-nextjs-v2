@@ -11,8 +11,8 @@ export default function TodoCard({
 }: Todo) {
   return (
     <div className="w-full border border-stone-300 rounded-lg p-3 bg-white shadow-lg">
-      <section className="flex justify-between items-start pb-4 mb-4 px-2 border-b border-gray-200">
-        <h3 className="font-bold text-stone-700">{name}</h3>
+      <section className="grid grid-cols-4 pb-4 mb-4 px-2 border-b border-gray-200">
+        <h3 className="font-bold text-stone-700 col-start-2 col-end-4 text-center">{name}</h3>
         <TimeBadge
           color="amber"
           dateTimeValue={new Date(deadline)}
