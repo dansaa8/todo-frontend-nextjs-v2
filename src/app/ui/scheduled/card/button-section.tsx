@@ -6,7 +6,7 @@ import HamburgerIcon from '../../svg/hamburger-icon';
 export default function ButtonSection() {
   return (
     <section className="grid grid-cols-4 mb-4 mt-2">
-      <IconButton className='col-start-1'>
+      <IconButton className='col-start-1 justify-self-center'>
         <InfoIcon />
       </IconButton>
       <Button startIcon={<CheckMarkIcon />} variant="contained" color="inherit" className='col-start-2 col-end-4 justify-self-center max-w-32'>

@@ -1,11 +1,11 @@
-import { getAllTasks } from '@/app/lib/tasks-api';
+import { getAll } from '@/app/lib/tasks-api';
 import { Todo } from '@/app/lib/definitions';
 import TodoCard from './card/todo-card';
 import { IconButton } from '@mui/material';
 import CalendarIcon from '@/app/ui/svg/calendar-icon';
 
 export default async function TodoContainer() {
-  const fetchedTodos = await getAllTasks();
+  const fetchedTodos = await getAll();
 
   return (
     <>

@@ -1,7 +1,9 @@
 'use server';
 
+import { NewTodo } from '@/app/lib/definitions';
+
 const token =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJ0aWwiLCJleHAiOjE3MTY4MDM1NTl9.TXRtSzm2XnS7JdAumqCm9W1C8fl99it6px0-hAy84yM';
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJ0aWwiLCJleHAiOjE3MTY5MDAwODl9.EqVjutK-abFe-YHlfqHhnVxq_8X2XSYp_42H7RgdK8E';
 
 const headers = {
   Authorization: token,
@@ -10,7 +12,7 @@ const headers = {
 
 const TASKS_URL = `${process.env.TASKS_API}/api/tasks`;
 
-const getAllTasks = async () => {
+const getAll = async () => {
   try {
     const response = await fetch(TASKS_URL, {
       method: 'GET',
@@ -23,4 +25,18 @@ const getAllTasks = async () => {
   }
 };
 
-export { getAllTasks };
+const create = async (newTodo: NewTodo) => {
+  try {
+    const response = await fetch(TASKS_URL, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(newTodo),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log('Error:', error);
+  }
+};
+
+export { getAll, create };
