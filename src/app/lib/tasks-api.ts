@@ -3,7 +3,7 @@
 import { NewTodo } from '@/app/lib/definitions';
 
 const token =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJ0aWwiLCJleHAiOjE3MTY5MDAwODl9.EqVjutK-abFe-YHlfqHhnVxq_8X2XSYp_42H7RgdK8E';
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJ0aWwiLCJleHAiOjE3MTY5NzQ2MDJ9.6w1n71kQK2yNpAApLww7MsU_7bY9x_diBqjJGPACrIw';
 
 const headers = {
   Authorization: token,

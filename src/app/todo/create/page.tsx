@@ -23,7 +23,7 @@ export default function TodoCreatePage() {
     console.log('\n', todo, ' was created successfully!\n');
 
     // Redirect the user back to the root route
-    redirect('/dashboard/scheduled');
+    redirect('/todo/scheduled');
   }
   return (
     <form action={createTodo}>
