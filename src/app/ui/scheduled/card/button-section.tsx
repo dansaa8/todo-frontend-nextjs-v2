@@ -2,6 +2,7 @@ import { Button, IconButton } from '@mui/material';
 import InfoIcon from '@/app/ui/svg/info-icon';
 import CheckMarkIcon from '../../svg/checkmark-icon';
 import HamburgerMenu from './hamburger-menu';
+import { Todo } from '@/app/lib/definitions';
 
 export default function ButtonSection() {
   return (

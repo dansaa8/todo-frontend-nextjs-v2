@@ -1,12 +1,14 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, use } from 'react';
 import { IconButton } from '@mui/material';
 import HamburgerIcon from '@/app/ui/svg/hamburger-icon';
 import DeleteIcon from '@/app/ui/svg/delete-icon';
 import EditIcon from '@/app/ui/svg/edit-icon';
+import DeleteModal from './delete-modal';
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const divEl = useRef();
 
   useEffect(() => {
@@ -33,6 +35,10 @@ export default function HamburgerMenu() {
     console.log('Dropdown menu is now', isOpen ? 'closed' : 'open');
   };
 
+  const handleDeleteBtnClick = () => {
+    setShowDeleteModal(true);
+  };
+
   return (
     <div ref={divEl} className="relative col-start-4 justify-self-center">
       <IconButton
@@ -41,7 +47,7 @@ export default function HamburgerMenu() {
       >
         <HamburgerIcon />
       </IconButton>
-      {isOpen && (
+      {isOpen && !showDeleteModal && (
         <ul className="absolute top-full left-1/2 transform -translate-x-1/2  bg-white border border-gray-400 rounded-xl flex justify-center items-center gap-3">
           <li>
             <IconButton>
@@ -50,11 +56,14 @@ export default function HamburgerMenu() {
           </li>
           <span className="h-8 w-px bg-gray-200"></span>
           <li>
-            <IconButton>
+            <IconButton onClick={handleDeleteBtnClick}>
               <DeleteIcon className="w-7 h-7 text-red-600" />
             </IconButton>
           </li>
         </ul>
+      )}
+      {showDeleteModal && (
+        <DeleteModal handleCancelBtnClick={handleDeleteBtnClick} />
       )}
     </div>
   );
