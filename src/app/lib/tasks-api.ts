@@ -3,7 +3,7 @@
 import { NewTodo } from '@/app/lib/definitions';
 
 const token =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJ0aWwiLCJleHAiOjE3MTY5NzQ2MDJ9.6w1n71kQK2yNpAApLww7MsU_7bY9x_diBqjJGPACrIw';
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJ0aWwiLCJleHAiOjE3MTcwOTU0Njd9.nNfwc1kLXNxsZuYEB3HwQKiVwFGA8euSWCPvpVkcNjY';
 
 const headers = {
   Authorization: token,
@@ -15,6 +15,19 @@ const TASKS_URL = `${process.env.TASKS_API}/api/tasks`;
 const getAll = async () => {
   try {
     const response = await fetch(TASKS_URL, {
+      method: 'GET',
+      headers: headers,
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+const getById = async (id: number) => {
+  try {
+    const response = await fetch(`${TASKS_URL}/${id}`, {
       method: 'GET',
       headers: headers,
     });
@@ -39,4 +52,16 @@ const create = async (newTodo: NewTodo) => {
   }
 };
 
-export { getAll, create };
+const deleteById = async (id: number) => {
+  try {
+    const response = await fetch(`${TASKS_URL}/${id}`, {
+      method: 'DELETE',
+      headers: headers,
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+export { getAll, getById, create, deleteById };
