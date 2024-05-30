@@ -1,7 +1,7 @@
 import { Button, IconButton } from '@mui/material';
 import InfoIcon from '@/app/ui/svg/info-icon';
 import CheckMarkIcon from '../../svg/checkmark-icon';
-import HamburgerIcon from '../../svg/hamburger-icon';
+import HamburgerMenu from './hamburger-menu';
 
 export default function ButtonSection() {
   return (
@@ -12,9 +12,7 @@ export default function ButtonSection() {
       <Button startIcon={<CheckMarkIcon />} variant="contained" color="inherit" className='col-start-2 col-end-4 justify-self-center max-w-32'>
         Done
       </Button>
-      <IconButton className='col-start-4 justify-self-center'>
-        <HamburgerIcon />
-      </IconButton>
+      <HamburgerMenu />
     </section>
   );
 }
