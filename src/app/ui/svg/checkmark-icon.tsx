@@ -11,9 +11,9 @@ export default function CheckMarkIcon(props: React.SVGProps<SVGSVGElement>) {
       <path
         d="M22.75 7L10.5 21L5.25 15.75"
         stroke="#5F5F5F"
-        stroke-width="2.40625"
-        stroke-miterlimit="10"
-        stroke-linecap="square"
+        strokeWidth="2.40625"
+        strokeMiterlimit="10"
+        strokeLinecap="square"
       />
     </svg>
   );
