@@ -35,8 +35,8 @@ export default function HamburgerMenu() {
     console.log('Dropdown menu is now', isOpen ? 'closed' : 'open');
   };
 
-  const handleDeleteBtnClick = () => {
-    setShowDeleteModal(true);
+  const handleModalClose = () => {
+    setShowDeleteModal(false);
   };
 
   return (
@@ -56,14 +56,14 @@ export default function HamburgerMenu() {
           </li>
           <span className="h-8 w-px bg-gray-200"></span>
           <li>
-            <IconButton onClick={handleDeleteBtnClick}>
+            <IconButton onClick={() => {setShowDeleteModal(true)}}>
               <DeleteIcon className="w-7 h-7 text-red-600" />
             </IconButton>
           </li>
         </ul>
       )}
       {showDeleteModal && (
-        <DeleteModal handleCancelBtnClick={handleDeleteBtnClick} />
+        <DeleteModal handleModalClose={handleModalClose} />
       )}
     </div>
   );
