@@ -38,7 +38,7 @@ export default function DeleteModal({ handleModalClose }) {
       >
         <div className="fixed inset-0"></div>
       </div>
-      <div className="z-20 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 bg-white h-80 w-96 rounded-xl">
+      <div className="z-20 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 bg-white h-80 w-96 rounded-xl" ref={modalContentRef}>
         <CancelIcon
           className="absolute top-2 right-2  cursor-pointer  hover:bg-gray-200 rounded-xl"
           onClick={handleModalClose}

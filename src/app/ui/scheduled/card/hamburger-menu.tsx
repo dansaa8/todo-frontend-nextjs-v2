@@ -31,12 +31,15 @@ export default function HamburgerMenu() {
   }, []);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
-    console.log('Dropdown menu is now', isOpen ? 'closed' : 'open');
+    if (!showDeleteModal) { // Ensure menu toggles only if the DeleteModal is not shown
+      setIsOpen(!isOpen);
+      console.log('Dropdown menu is now', isOpen ? 'closed' : 'open');
+    }
   };
 
   const handleModalClose = () => {
     setShowDeleteModal(false);
+    setIsOpen(false); // Ensure menu is closed when modal is closed
   };
 
   return (
