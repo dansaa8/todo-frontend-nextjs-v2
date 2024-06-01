@@ -1,14 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import CancelIcon from '@/app/ui/svg/cancel-icon';
 import FormButton from '@/app/ui/common/FormButton';
-import { Button } from "@nextui-org/react";
+import { Button } from '@nextui-org/react';
 import deleteTodoAction from '@/app/actions/delete-todo';
 import { useContext } from 'react';
 import { TodoContext } from '@/app/providers';
+import { useSnackbar } from '@/app/providers/snackbar-context';
 
 export default function DeleteModal({ handleModalClose }) {
   const todo = useContext(TodoContext);
+  const { showSnackbar } = useSnackbar();
   const modalContentRef = useRef();
 
   useEffect(() => {
@@ -32,8 +34,14 @@ export default function DeleteModal({ handleModalClose }) {
     };
   }, [handleModalClose]);
 
+  const handleDelete = async (formData: FormData) => {
+    deleteTodoAction(formData);
+    showSnackbar(`${todo?.name} was deleted.`);
+    handleModalClose();
+  };
+
   return ReactDOM.createPortal(
-    <form action={deleteTodoAction}>
+    <form action={handleDelete}>
       <div
         // onClick={onClose}
         className="z-10 fixed inset-0 bg-gray-300 opacity-80 flex justify-center items-center"
@@ -52,9 +60,7 @@ export default function DeleteModal({ handleModalClose }) {
           {todo!.name}
         </h3>
 
-        <p className='text-sm'>
-          Are you sure you want to remove this task?
-        </p>
+        <p className="text-sm">Are you sure you want to remove this task?</p>
         <div className="flex justify-around">
           <input type="hidden" name="id" value={todo.id} />
           <FormButton
