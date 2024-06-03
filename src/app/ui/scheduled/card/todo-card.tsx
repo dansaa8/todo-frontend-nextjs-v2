@@ -4,7 +4,7 @@ import { Todo } from '@/app/lib/definitions';
 import ButtonSection from './button-section';
 import TimeBadge from './time-badge';
 import { useContext } from 'react';
-import { TodoContext } from '@/app/providers';
+import { TodoContext } from '@/app/providers/todo-context';
 
 export default function TodoCard() {
   const todo = useContext(TodoContext);

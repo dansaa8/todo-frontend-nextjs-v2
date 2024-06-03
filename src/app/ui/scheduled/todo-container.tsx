@@ -1,12 +1,13 @@
+"use client";
 import { getAll } from '@/app/lib/tasks-api';
 import { Todo } from '@/app/lib/definitions';
 import TodoCard from './card/todo-card';
 import { IconButton } from '@mui/material';
 import CalendarIcon from '@/app/ui/svg/calendar-icon';
-import TodoProvider from '@/app/providers';
-
-export default async function TodoContainer() {
-  const fetchedTodos = await getAll();
+import TodoProvider from '@/app/providers/todo-context';
+import { useTodoListContext } from '@/app/providers/todo-list-context';
+export default function TodoContainer() {
+  const { todos, loading, error } = useTodoListContext();
 
   return (
     <>
@@ -20,7 +21,7 @@ export default async function TodoContainer() {
       </section>
 
       <div className="flex flex-col gap-8 items-center">
-        {fetchedTodos.map((todo: Todo) => {
+        {todos.map((todo: Todo) => {
           return (
             <TodoProvider todo={todo}>
               <TodoCard key={todo.id} />;
