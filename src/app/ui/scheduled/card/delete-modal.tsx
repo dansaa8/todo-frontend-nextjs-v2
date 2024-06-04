@@ -11,7 +11,7 @@ import { useTodoListContext } from '@/app/providers/todo-list-context';
 
 export default function DeleteModal({ handleModalClose }) {
   const todo = useContext(TodoContext);
-  const { setTodos } = useTodoListContext();
+    const { setTodos } = useTodoListContext();
   const { showSnackbar } = useSnackbar();
 
   const modalContentRef = useRef();

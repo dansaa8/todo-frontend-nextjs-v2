@@ -13,7 +13,7 @@ import path from 'path';
 
 const links = [
   { name: 'Scheduled', href: '/todo/scheduled', icon: CalendarIcon },
-  { name: 'Create', href: '/todo/create', icon: PlusCircleIcon },
+  { name: 'Create', href: '/todo/new', icon: PlusCircleIcon },
   { name: 'Profile', href: '/todo/profile', icon: UserIcon },
 ];
 
