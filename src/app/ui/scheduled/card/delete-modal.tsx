@@ -1,17 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import CancelIcon from '@/app/ui/svg/cancel-icon';
 import FormButton from '@/app/ui/common/FormButton';
 import { Button } from '@nextui-org/react';
 import deleteTodoAction from '@/app/actions/delete-todo';
-import { useContext } from 'react';
 import { TodoContext } from '@/app/providers/todo-context';
 import { useSnackbar } from '@/app/providers/snackbar-context';
 import { useTodoListContext } from '@/app/providers/todo-list-context';
 
 export default function DeleteModal({ handleModalClose }) {
   const todo = useContext(TodoContext);
-    const { setTodos } = useTodoListContext();
+  const { setTodos } = useTodoListContext();
   const { showSnackbar } = useSnackbar();
 
   const modalContentRef = useRef();

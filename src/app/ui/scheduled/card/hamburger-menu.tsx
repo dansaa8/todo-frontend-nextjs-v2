@@ -1,15 +1,21 @@
 'use client';
-import { useEffect, useState, useRef, use } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import { IconButton } from '@mui/material';
 import HamburgerIcon from '@/app/ui/svg/hamburger-icon';
 import DeleteIcon from '@/app/ui/svg/delete-icon';
 import EditIcon from '@/app/ui/svg/edit-icon';
 import DeleteModal from './delete-modal';
+import Link from 'next/link';
+import { TodoContext } from '@/app/providers/todo-context';
+
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const divEl = useRef();
+
+  const todo = useContext(TodoContext);
+
 
   useEffect(() => {
     const handler = (event) => {
@@ -31,7 +37,8 @@ export default function HamburgerMenu() {
   }, []);
 
   const toggleMenu = () => {
-    if (!showDeleteModal) { // Ensure menu toggles only if the DeleteModal is not shown
+    if (!showDeleteModal) {
+      // Ensure menu toggles only if the DeleteModal is not shown
       setIsOpen(!isOpen);
       console.log('Dropdown menu is now', isOpen ? 'closed' : 'open');
     }
@@ -54,20 +61,24 @@ export default function HamburgerMenu() {
         <ul className="absolute top-full left-1/2 transform -translate-x-1/2  bg-white border border-gray-400 rounded-xl flex justify-center items-center gap-3">
           <li>
             <IconButton>
-              <EditIcon className="w-9 h-9" />
+              <Link href={`/todo/${todo.id}/edit`}>
+                <EditIcon className="w-9 h-9" />
+              </Link>
             </IconButton>
           </li>
           <span className="h-8 w-px bg-gray-200"></span>
           <li>
-            <IconButton onClick={() => {setShowDeleteModal(true)}}>
+            <IconButton
+              onClick={() => {
+                setShowDeleteModal(true);
+              }}
+            >
               <DeleteIcon className="w-7 h-7 text-red-600" />
             </IconButton>
           </li>
         </ul>
       )}
-      {showDeleteModal && (
-        <DeleteModal handleModalClose={handleModalClose} />
-      )}
+      {showDeleteModal && <DeleteModal handleModalClose={handleModalClose} />}
     </div>
   );
 }
