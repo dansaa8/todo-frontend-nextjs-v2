@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+
 import { inter } from '@/app/ui/fonts';
 import '@/app/ui/global.css';
 import { SnackbarProvider } from './providers/snackbar-context';
@@ -17,9 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <TodoListProvider>
-          <SnackbarProvider>{children}</SnackbarProvider>
-        </TodoListProvider>
+          <TodoListProvider>
+            <SnackbarProvider>{children}</SnackbarProvider>
+          </TodoListProvider>
         <div className="modal-container z-40"></div>
       </body>
     </html>
