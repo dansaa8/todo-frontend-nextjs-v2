@@ -1,9 +1,10 @@
+// import 'server-only'
 'use server';
 
 import { NewTodo } from '@/app/lib/definitions';
 
 const token =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJ0aWwiLCJleHAiOjE3MTcwOTU0Njd9.nNfwc1kLXNxsZuYEB3HwQKiVwFGA8euSWCPvpVkcNjY';
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJ0aWwiLCJleHAiOjE3MTc2NjI4OTN9.1SxG758TRO8-b8tDJO5H1JIUQbiOwCVc8lRC-xV8MjY';
 
 const headers = {
   Authorization: token,
