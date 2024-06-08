@@ -13,16 +13,16 @@ export default function TimeBadge({
   includeDate,
 }: TimeBadgeProps) {
   let border =
-    'flex inline-flex items-center gap-1 py-1 px-3 text-xs font-medium rounded-full border ';
+    'flex items-center justify-center justify-self-center w-20 h-6 gap-1 text-xs font-medium rounded-full border';
   let textColor;
 
   if (color === 'amber') {
-    border += 'border-amber-500 text-amber-500';
+    border += ' border-amber-500 text-amber-500';
     textColor = 'text-amber-500';
   }
 
   if (color === 'green') {
-    border += 'border-green-500 text-green-500';
+    border += ' border-green-500 text-green-500';
     textColor = 'text-green-500';
   }
 

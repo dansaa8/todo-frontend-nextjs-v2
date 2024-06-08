@@ -12,9 +12,9 @@ import clsx from 'clsx';
 import path from 'path';
 
 const links = [
-  { name: 'Scheduled', href: '/dashboard/scheduled', icon: CalendarIcon },
-  { name: 'Create', href: '/dashboard/create', icon: PlusCircleIcon },
-  { name: 'Profile', href: '/dashboard/profile', icon: UserIcon },
+  { name: 'Scheduled', href: '/todo/scheduled', icon: CalendarIcon },
+  { name: 'Create', href: '/todo/new', icon: PlusCircleIcon },
+  { name: 'Profile', href: '/todo/profile', icon: UserIcon },
 ];
 
 export default function NavLinks() {

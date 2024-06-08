@@ -6,4 +6,8 @@ export type Todo = {
   completedAt: Date | null;
 };
 
-export type CreateTodo = {};
+export type NewTodo = {
+  name: string;
+  description: string | null;
+  deadline: Date;
+};
