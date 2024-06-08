@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getById } from '@/app/lib/tasks-api';
+import { getById } from '@/lib/tasks-api';
 import { Todo } from '@/app/lib/definitions';
 
 interface TodoShowPageProps {

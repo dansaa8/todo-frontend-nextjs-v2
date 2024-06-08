@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import NavLinks from '@/app/ui/navigation/nav-links';
+import NavLinks from '@/ui/navigation/nav-links';
 
 export default function SideNav() {
   return (

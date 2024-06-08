@@ -1,5 +1,5 @@
 import React from 'react';
-import ClockIcon from '@/app/ui/svg/clock-icon';
+import ClockIcon from '@/ui/svg/clock-icon';
 
 type TimeBadgeProps = {
   color: 'amber' | 'green';

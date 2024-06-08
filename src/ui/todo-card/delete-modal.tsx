@@ -1,27 +1,32 @@
 import { useEffect, useRef, useContext } from 'react';
 import ReactDOM from 'react-dom';
-import CancelIcon from '@/app/ui/svg/cancel-icon';
-import FormButton from '@/app/ui/common/FormButton';
 import { Button } from '@nextui-org/react';
-import deleteTodoAction from '@/app/actions/delete-todo';
-import { TodoContext } from '@/app/providers/todo-context';
-import { useSnackbar } from '@/app/providers/snackbar-context';
-import { useTodoListContext } from '@/app/providers/todo-list-context';
+import { Todo } from '@/lib/definitions';
+import CancelIcon from '@/ui/svg/cancel-icon';
+import FormButton from '@/ui/common/FormButton';
+import { deleteTodo } from '@/actions';
+import { useSnackbar } from '@/providers/snackbar-context';
 
-export default function DeleteModal({ handleModalClose }) {
-  const todo = useContext(TodoContext);
-  const { setTodos } = useTodoListContext();
+interface DeleteModalProps {
+  handleModalClose: () => void;
+  todo: Todo;
+}
+
+export default function DeleteModal({
+  handleModalClose,
+  todo,
+}: DeleteModalProps) {
   const { showSnackbar } = useSnackbar();
 
-  const modalContentRef = useRef();
+  const modalContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.body.classList.add('overflow-hidden');
 
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         modalContentRef.current &&
-        !modalContentRef.current.contains(event.target)
+        !modalContentRef.current.contains(event.target as Node)
       ) {
         handleModalClose();
       }
@@ -37,8 +42,7 @@ export default function DeleteModal({ handleModalClose }) {
   }, [handleModalClose]);
 
   const handleDelete = async (formData: FormData) => {
-    await deleteTodoAction(formData);
-    setTodos((prevTodos) => prevTodos.filter((item) => item.id !== todo.id));
+    await deleteTodo(formData);
     showSnackbar(`${todo?.name} was deleted.`);
     handleModalClose();
   };
@@ -82,6 +86,6 @@ export default function DeleteModal({ handleModalClose }) {
         </div>
       </div>
     </form>,
-    document.querySelector('.modal-container')
+    document.querySelector('.modal-container') as HTMLDivElement
   );
 }

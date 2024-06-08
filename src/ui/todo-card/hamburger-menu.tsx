@@ -1,29 +1,29 @@
 'use client';
-import { useEffect, useState, useRef, useContext } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { Todo } from '@/lib/definitions';
 import { IconButton } from '@mui/material';
-import HamburgerIcon from '@/app/ui/svg/hamburger-icon';
-import DeleteIcon from '@/app/ui/svg/delete-icon';
-import EditIcon from '@/app/ui/svg/edit-icon';
-import DeleteModal from './delete-modal';
+import HamburgerIcon from '@/ui/svg/hamburger-icon';
+import DeleteIcon from '@/ui/svg/delete-icon';
+import EditIcon from '@/ui/svg/edit-icon';
+import DeleteModal from '@/ui/todo-card/delete-modal';
 import Link from 'next/link';
-import { TodoContext } from '@/app/providers/todo-context';
 
+interface HamburgerMenuProps {
+  todo: Todo;
+}
 
-export default function HamburgerMenu() {
+export default function HamburgerMenu({ todo }: HamburgerMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const divEl = useRef();
-
-  const todo = useContext(TodoContext);
-
+  const divEl = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handler = (event) => {
+    const handler = (event: MouseEvent) => {
       if (!divEl.current) {
         return;
       }
 
-      if (!divEl.current.contains(event.target)) {
+      if (!divEl.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -78,7 +78,9 @@ export default function HamburgerMenu() {
           </li>
         </ul>
       )}
-      {showDeleteModal && <DeleteModal handleModalClose={handleModalClose} />}
+      {showDeleteModal && (
+        <DeleteModal handleModalClose={handleModalClose} todo={todo} />
+      )}
     </div>
   );
 }
