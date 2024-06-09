@@ -1,22 +1,18 @@
 'use client';
+import { useFormState } from 'react-dom';
 import { DateField, TimeField } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import { redirect } from 'next/navigation';
 import 'dayjs/locale/zh-cn';
-import {createTodo} from '@/app/actions';
+import * as actions from '@/app/actions';
 
 export default function TodoCreatePage() {
-
-  const handleCreate = async (formData: FormData) => {
-    const newTodo = await createTodo(formData);
-    redirect('/todo/scheduled');
-  };
+  const [formState, action] = useFormState(actions.createTodo, { message: '' });
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="zh-cn">
-      <form action={handleCreate}>
+      <form action={action}>
         <h3 className="font-bold m-1 text-xl border border-b-stone-300">
           Create a Todo
         </h3>
@@ -43,6 +39,11 @@ export default function TodoCreatePage() {
           </div>
           <DateField label="Date" name="date" id="date" />
           <TimeField label="Time" name="time" id="time" />
+          {formState.message ? (
+            <div className="my-2 p-2 bg-red-200 border rounded border-red-400">
+              {formState.message}
+            </div>
+          ) : null}
           <button type="submit" className="rounded p-2 bg-blue-200">
             Create
           </button>
