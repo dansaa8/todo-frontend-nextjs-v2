@@ -5,14 +5,14 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { redirect } from 'next/navigation';
 import 'dayjs/locale/zh-cn';
-import createTodoAction from '@/app/actions/create-todo';
+import {createTodo} from '@/app/actions';
 import { useTodoListContext } from '@/app/providers/todo-list-context';
 
 export default function TodoCreatePage() {
   const { setTodos } = useTodoListContext();
 
   const handleCreate = async (formData: FormData) => {
-    const newTodo = await createTodoAction(formData);
+    const newTodo = await createTodo(formData);
     setTodos((prevTodos) => [...prevTodos, newTodo]);
     redirect('/todo/scheduled');
   };

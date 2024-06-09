@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import CancelIcon from '@/app/ui/svg/cancel-icon';
 import FormButton from '@/app/ui/common/FormButton';
 import { Button } from '@nextui-org/react';
-import deleteTodoAction from '@/app/actions/delete-todo';
+import { deleteTodo } from '@/app/actions';
 import { TodoContext } from '@/app/providers/todo-context';
 import { useSnackbar } from '@/app/providers/snackbar-context';
 import { useTodoListContext } from '@/app/providers/todo-list-context';
@@ -37,7 +37,7 @@ export default function DeleteModal({ handleModalClose }) {
   }, [handleModalClose]);
 
   const handleDelete = async (formData: FormData) => {
-    await deleteTodoAction(formData);
+    await deleteTodo(formData);
     setTodos((prevTodos) => prevTodos.filter((item) => item.id !== todo.id));
     showSnackbar(`${todo?.name} was deleted.`);
     handleModalClose();
