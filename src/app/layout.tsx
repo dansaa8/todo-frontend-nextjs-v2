@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { inter } from '@/app/ui/fonts';
 import '@/app/ui/global.css';
-import { Providers } from './providers';
+import { SnackbarProvider } from '@/app/providers/snackbar-context';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-            <Providers>{children}</Providers>
+        <SnackbarProvider>{children}</SnackbarProvider>
         <div className="modal-container z-40"></div>
       </body>
     </html>

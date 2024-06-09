@@ -6,14 +6,11 @@ import dayjs from 'dayjs';
 import { redirect } from 'next/navigation';
 import 'dayjs/locale/zh-cn';
 import {createTodo} from '@/app/actions';
-import { useTodoListContext } from '@/app/providers/todo-list-context';
 
 export default function TodoCreatePage() {
-  const { setTodos } = useTodoListContext();
 
   const handleCreate = async (formData: FormData) => {
     const newTodo = await createTodo(formData);
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
     redirect('/todo/scheduled');
   };
 

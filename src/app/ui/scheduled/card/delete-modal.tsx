@@ -1,27 +1,32 @@
 import { useEffect, useRef, useContext } from 'react';
 import ReactDOM from 'react-dom';
+import { Button } from '@nextui-org/react';
+import { Todo } from '@/app/lib/definitions';
 import CancelIcon from '@/app/ui/svg/cancel-icon';
 import FormButton from '@/app/ui/common/FormButton';
-import { Button } from '@nextui-org/react';
 import { deleteTodo } from '@/app/actions';
-import { TodoContext } from '@/app/providers/todo-context';
 import { useSnackbar } from '@/app/providers/snackbar-context';
-import { useTodoListContext } from '@/app/providers/todo-list-context';
 
-export default function DeleteModal({ handleModalClose }) {
-  const todo = useContext(TodoContext);
-  const { setTodos } = useTodoListContext();
+interface DeleteModalProps {
+  handleModalClose: () => void;
+  todo: Todo;
+}
+
+export default function DeleteModal({
+  handleModalClose,
+  todo,
+}: DeleteModalProps) {
   const { showSnackbar } = useSnackbar();
 
-  const modalContentRef = useRef();
+  const modalContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.body.classList.add('overflow-hidden');
 
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         modalContentRef.current &&
-        !modalContentRef.current.contains(event.target)
+        !modalContentRef.current.contains(event.target as Node)
       ) {
         handleModalClose();
       }
@@ -38,7 +43,6 @@ export default function DeleteModal({ handleModalClose }) {
 
   const handleDelete = async (formData: FormData) => {
     await deleteTodo(formData);
-    setTodos((prevTodos) => prevTodos.filter((item) => item.id !== todo.id));
     showSnackbar(`${todo?.name} was deleted.`);
     handleModalClose();
   };
@@ -82,6 +86,6 @@ export default function DeleteModal({ handleModalClose }) {
         </div>
       </div>
     </form>,
-    document.querySelector('.modal-container')
+    document.querySelector('.modal-container') as HTMLDivElement
   );
 }

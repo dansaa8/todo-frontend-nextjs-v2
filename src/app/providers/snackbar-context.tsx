@@ -1,16 +1,40 @@
-"use client";
-import React, { createContext, useState, useContext } from 'react';
-import Snackbar from "@mui/material/Snackbar";
+'use client';
+import React, { createContext, useState, useContext, ReactNode } from 'react';
+import Snackbar from '@mui/material/Snackbar';
 
-const SnackbarContext = createContext();
+// Define the type for the context value
+interface SnackbarContextType {
+  showSnackbar: (message: string) => void;
+  hideSnackbar: () => void;
+}
 
-export const useSnackbar = () => useContext(SnackbarContext);
+// Create the context with the defined type
+const SnackbarContext = createContext<SnackbarContextType | undefined>(
+  undefined
+);
 
-export const SnackbarProvider = ({ children }) => {
+// Custom hook to use the Snackbar context
+export const useSnackbar = () => {
+  const context = useContext(SnackbarContext);
+  if (context === undefined) {
+    throw new Error('useSnackbar must be used within a SnackbarProvider');
+  }
+  return context;
+};
+
+// Define props for the SnackbarProvider
+interface SnackbarProviderProps {
+  children: ReactNode;
+}
+
+// SnackbarProvider component
+export const SnackbarProvider: React.FC<SnackbarProviderProps> = ({
+  children,
+}) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
-  const showSnackbar = (message) => {
+  const showSnackbar = (message: string) => {
     setSnackbarMessage(message);
     setSnackbarOpen(true);
   };

@@ -1,13 +1,15 @@
-'use client';
-
+import { Button, IconButton } from '@mui/material';
 import { Todo } from '@/app/lib/definitions';
-import ButtonSection from './button-section';
-import TimeBadge from './time-badge';
-import { useContext } from 'react';
-import { TodoContext } from '@/app/providers/todo-context';
+import TimeBadge from '@/app/ui/scheduled/card/time-badge';
+import HamburgerMenu from '@/app/ui/scheduled/card/hamburger-menu';
+import InfoIcon from '@/app/ui/svg/info-icon';
+import CheckMarkIcon from '@/app/ui/svg/checkmark-icon';
 
-export default function TodoCard() {
-  const todo = useContext(TodoContext);
+interface TodoCardProps {
+  todo: Todo;
+}
+
+export default function TodoCard({ todo }: TodoCardProps) {
   return (
     <div className="w-full border border-stone-300 rounded-lg p-3 bg-white shadow-lg">
       <section className="grid grid-cols-4 pb-4 mb-4 px-2 border-b border-gray-200">
@@ -20,7 +22,21 @@ export default function TodoCard() {
           includeDate={false}
         ></TimeBadge>
       </section>
-      <ButtonSection />
+
+      <section className="grid grid-cols-4 mb-4 mt-2">
+        <IconButton className="col-start-1 justify-self-center">
+          <InfoIcon />
+        </IconButton>
+        <Button
+          startIcon={<CheckMarkIcon />}
+          variant="contained"
+          color="inherit"
+          className="col-start-2 col-end-4 justify-self-center max-w-32"
+        >
+          Done
+        </Button>
+        <HamburgerMenu todo={todo} />
+      </section>
     </div>
   );
 }

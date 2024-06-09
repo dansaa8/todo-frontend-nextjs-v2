@@ -4,7 +4,7 @@
 import { NewTodo } from '@/app/lib/definitions';
 
 const token =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJ0aWwiLCJleHAiOjE3MTc2NjI4OTN9.1SxG758TRO8-b8tDJO5H1JIUQbiOwCVc8lRC-xV8MjY';
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJ0aWwiLCJleHAiOjE3MTgwMDk0OTN9.BDGke5SsvetxBQecJ5UXMwel2OcootL5tlUBldWzzHo';
 
 const headers = {
   Authorization: token,
