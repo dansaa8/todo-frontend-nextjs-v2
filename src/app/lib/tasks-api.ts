@@ -1,23 +1,23 @@
-// import 'server-only'
-'use server';
-
+// app/lib/api.ts
+import { getToken } from '@/app/lib/cookies';
 import { NewTodo } from '@/app/lib/definitions';
 
-const token =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJ0aWwiLCJleHAiOjE3MTgwMDk0OTN9.BDGke5SsvetxBQecJ5UXMwel2OcootL5tlUBldWzzHo';
-
-const headers = {
-  Authorization: token,
-  'Content-Type': 'application/json',
+const headers = (): HeadersInit => {
+  const token = getToken();
+  return {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  };
 };
 
 const TASKS_URL = `${process.env.TASKS_API}/api/tasks`;
 
 const getAll = async () => {
+  console.log('\nHEADERS IS here: ', headers(), '\n');
   try {
     const response = await fetch(TASKS_URL, {
       method: 'GET',
-      headers: headers,
+      headers: headers(),
     });
     const data = await response.json();
     return data;
@@ -30,7 +30,7 @@ const getById = async (id: number) => {
   try {
     const response = await fetch(`${TASKS_URL}/${id}`, {
       method: 'GET',
-      headers: headers,
+      headers: headers(),
     });
     const data = await response.json();
     return data;
@@ -43,7 +43,7 @@ const create = async (newTodo: NewTodo) => {
   try {
     const response = await fetch(TASKS_URL, {
       method: 'POST',
-      headers: headers,
+      headers: headers(),
       body: JSON.stringify(newTodo),
     });
     const data = await response.json();
@@ -57,7 +57,7 @@ const deleteById = async (id: number) => {
   try {
     const response = await fetch(`${TASKS_URL}/${id}`, {
       method: 'DELETE',
-      headers: headers,
+      headers: headers(),
     });
     const data = await response.json();
     return data;
@@ -65,4 +65,5 @@ const deleteById = async (id: number) => {
     console.error('Error:', error);
   }
 };
+
 export { getAll, getById, create, deleteById };
