@@ -16,3 +16,15 @@ input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+@layer components {
+  .primary-background {
+    @apply bg-emerald-400 text-white text-xl 
+  }
+  .container-light-gray {
+    @apply bg-stone-200 border rounded-md text-gray-800;
+  }
+  .button-primary {
+    @apply bg-orange-300
+  }
+}

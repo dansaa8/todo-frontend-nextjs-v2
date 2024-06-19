@@ -27,25 +27,46 @@ const LoginPage = () => {
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <div>
-        <label>Username:</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    <div className="primary-background h-screen flex flex-col justify-center items-center relative">
+      <h1 className="absolute top-0 left-0 p-4 font-bold">Todo-manager</h1>
+      <form
+        onSubmit={handleLogin}
+        className="container-light-gray self-center p-4"
+      >
+        <h3 className="font-bold m-1 pb-5 text-center text-xl border border-b-stone-300">
+          Login
+        </h3>
+        <div className="flex flex-col gap-5 mt-4">
+          <div>
+            <label className="w-12" htmlFor="name">
+              Name
+            </label>
+            <input
+              // name="name"
+              // id="name"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <div>
+            <label className="w-12" htmlFor="name">
+              Password
+            </label>
+            <input
+              // name="name"
+              // id="name"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="border rounded p-2 w-full"
+            />
+          </div>
+          <button type="submit" className="rounded p-2 button-primary mt-7">
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

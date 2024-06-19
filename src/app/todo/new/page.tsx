@@ -44,7 +44,7 @@ export default function TodoCreatePage() {
               {formState.message}
             </div>
           ) : null}
-          <button type="submit" className="rounded p-2 bg-blue-200">
+          <button type="submit" className="rounded p-2 button-primary">
             Create
           </button>
         </div>
