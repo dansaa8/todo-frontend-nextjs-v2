@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import * as todoApi from '@/app/lib/tasks-api';
+import { revalidatePath } from 'next/cache';
 
 export async function createTodo(
   formState: { message: string },
@@ -61,6 +62,7 @@ export async function createTodo(
         message: 'An error occurred while creating the todo',
       };
   }
+  revalidatePath('/todo/scheduled')
   redirect(`/todo/scheduled`);
 }
 
@@ -73,6 +75,7 @@ export async function deleteTodo(formData: FormData) {
     await new Promise((resolve) => setTimeout(resolve, 5000)); // Delay for 5 seconds
 
     await todoApi.deleteById(id);
+    revalidatePath('/todo/scheduled')
     redirect('http://localhost:3000');
   } catch (error) {}
 }
