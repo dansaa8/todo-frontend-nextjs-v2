@@ -1,8 +1,14 @@
 'use client';
 import loginAction from '@/app/actions/loginAction';
+import FormButton from '@/app/ui/common/FormButton';
 export default function LoginForm() {
   return (
-    <form action={loginAction} className="container-light-gray self-center p-4">
+    <form
+      action={async (formData) => {
+        await loginAction(formData);
+      }}
+      className="container-light-gray self-center p-4"
+    >
       <h3 className="font-bold m-1 pb-5 text-center text-xl border border-b-stone-300">
         Login
       </h3>
@@ -27,9 +33,9 @@ export default function LoginForm() {
             className="border rounded p-2 w-full"
           />
         </div>
-        <button type="submit" className="rounded p-2 button-primary mt-7">
+        <FormButton className="rounded p-2 bg-orange-300 mt-7">
           Login
-        </button>
+        </FormButton>
       </div>
     </form>
   );

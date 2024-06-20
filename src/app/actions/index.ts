@@ -9,6 +9,8 @@ export async function createTodo(
   formData: FormData
 ) {
   try {
+    await new Promise((resolve) => setTimeout(resolve, 5000)); // REMOVE IN PRODUCTION:  Delay for 5 seconds
+
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
 
@@ -62,7 +64,7 @@ export async function createTodo(
         message: 'An error occurred while creating the todo',
       };
   }
-  revalidatePath('/todo/scheduled')
+  revalidatePath('/todo/scheduled');
   redirect(`/todo/scheduled`);
 }
 
@@ -72,10 +74,10 @@ export async function deleteTodo(formData: FormData) {
   console.log('ID HEEEEEEEEEEEEERE: ', id);
 
   try {
-    await new Promise((resolve) => setTimeout(resolve, 5000)); // Delay for 5 seconds
+    await new Promise((resolve) => setTimeout(resolve, 5000)); // REMOVE IN PRODUCTION:  Delay for 5 seconds
 
     await todoApi.deleteById(id);
-    revalidatePath('/todo/scheduled')
+    revalidatePath('/todo/scheduled');
     redirect('http://localhost:3000');
   } catch (error) {}
 }

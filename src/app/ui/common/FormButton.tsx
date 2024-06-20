@@ -2,11 +2,11 @@ import React from "react";
 import { Button } from "@nextui-org/react";
 import {useFormStatus} from 'react-dom';
 
-export default function FormButton({ children, showSpinner, ...rest }) {
+export default function FormButton({ children, ...rest }) {
   const { pending } = useFormStatus();
   return (
     <Button
-      isLoading={showSpinner && pending}
+      isLoading={pending}
       {...rest}
       type="submit"
       spinner={
@@ -32,7 +32,7 @@ export default function FormButton({ children, showSpinner, ...rest }) {
         </svg>
       }
     >
-      {children}
+      {!pending ? children : ""}
     </Button>
   );
 }

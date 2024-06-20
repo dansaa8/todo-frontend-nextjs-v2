@@ -72,8 +72,6 @@ export default function DeleteModal({
           <input type="hidden" name="id" value={todo.id} />
           <FormButton
             className="rounded-xl bg-red-600 px-4 py-2 text-white z-0 hover:bg-red-700"
-            showSpinner={true}
-            onClick={console.log('ID IS HERE: ', todo.id)}
           >
             Delete
           </FormButton>
