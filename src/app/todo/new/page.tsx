@@ -6,6 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import * as actions from '@/app/actions';
+import FormButton from '@/app/ui/common/FormButton';
 
 export default function TodoCreatePage() {
   const [formState, action] = useFormState(actions.createTodo, { message: '' });
@@ -44,9 +45,10 @@ export default function TodoCreatePage() {
               {formState.message}
             </div>
           ) : null}
-          <button type="submit" className="rounded p-2 button-primary">
+          <FormButton type="submit" className="rounded p-2 bg-orange-300">
             Create
-          </button>
+          </FormButton>
+          <button></button>
         </div>
       </form>
     </LocalizationProvider>
