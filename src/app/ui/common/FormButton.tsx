@@ -1,8 +1,8 @@
-import React from "react";
-import { Button } from "@nextui-org/react";
-import {useFormStatus} from 'react-dom';
+import React from 'react';
+import { Button } from '@nextui-org/react';
+import { useFormStatus } from 'react-dom';
 
-export default function FormButton({ children, ...rest }) {
+export default function FormButton({ children, pendingText, ...rest }) {
   const { pending } = useFormStatus();
   return (
     <Button
@@ -32,10 +32,7 @@ export default function FormButton({ children, ...rest }) {
         </svg>
       }
     >
-      {!pending ? children : ""}
+      {pending ? pendingText : children}
     </Button>
   );
 }
-
-
-

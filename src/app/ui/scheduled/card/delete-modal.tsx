@@ -71,7 +71,7 @@ export default function DeleteModal({
         <div className="flex justify-around">
           <input type="hidden" name="id" value={todo.id} />
           <FormButton
-            className="rounded-xl bg-red-600 px-4 py-2 text-white z-0 hover:bg-red-700"
+            className="rounded-xl bg-red-600 px-4 py-2 text-white z-0 hover:bg-red-700" pendingText=""
           >
             Delete
           </FormButton>

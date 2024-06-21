@@ -7,7 +7,7 @@ export default function LoginForm() {
       action={async (formData) => {
         await loginAction(formData);
       }}
-      className="container-light-gray self-center p-4"
+      className="container-light-gray self-center p-4 m-4"
     >
       <h3 className="font-bold m-1 pb-5 text-center text-xl border border-b-stone-300">
         Login
@@ -33,7 +33,7 @@ export default function LoginForm() {
             className="border rounded p-2 w-full"
           />
         </div>
-        <FormButton className="rounded p-2 bg-orange-300 mt-7">
+        <FormButton className="rounded p-2 bg-orange-300 mt-7" pendingText="Logging in...">
           Login
         </FormButton>
       </div>

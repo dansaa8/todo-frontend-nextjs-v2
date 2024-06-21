@@ -14,7 +14,7 @@ export default function TodoCreatePage() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="zh-cn">
       <form action={action}>
-        <h3 className="font-bold m-1 text-xl border border-b-stone-300">
+        <h3 className="font-bold m-1 text-xl border border-b-stone-300 text-center">
           Create a Todo
         </h3>
         <div className="flex flex-col gap-5 mt-4">
@@ -45,7 +45,7 @@ export default function TodoCreatePage() {
               {formState.message}
             </div>
           ) : null}
-          <FormButton type="submit" className="rounded p-2 bg-orange-300">
+          <FormButton type="submit" className="rounded p-2 bg-orange-300" pendingText="Creating a new Todo...">
             Create
           </FormButton>
           <button></button>
