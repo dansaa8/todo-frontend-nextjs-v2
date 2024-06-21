@@ -1,11 +1,13 @@
 'use client';
+import { useFormState } from 'react-dom';
 import loginAction from '@/app/actions/loginAction';
 import FormButton from '@/app/ui/common/FormButton';
 export default function LoginForm() {
+  const [formState, action] = useFormState(loginAction, { message: '' });
   return (
     <form
       action={async (formData) => {
-        await loginAction(formData);
+        await action(formData);
       }}
       className="container-light-gray self-center p-4 m-4"
     >
@@ -33,7 +35,15 @@ export default function LoginForm() {
             className="border rounded p-2 w-full"
           />
         </div>
-        <FormButton className="rounded p-2 bg-orange-300 mt-7" pendingText="Logging in...">
+        {formState.message ? (
+          <div className="my-2 p-2 bg-red-200 border rounded border-red-400 text-sm">
+            {formState.message}
+          </div>
+        ) : null}
+        <FormButton
+          className="rounded p-2 bg-orange-300 mt-7"
+          pendingText="Logging in..."
+        >
           Login
         </FormButton>
       </div>
