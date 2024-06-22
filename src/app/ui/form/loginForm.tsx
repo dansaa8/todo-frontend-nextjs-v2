@@ -2,6 +2,7 @@
 import { useFormState } from 'react-dom';
 import loginAction from '@/app/actions/loginAction';
 import FormButton from '@/app/ui/common/FormButton';
+import FormErrorMessage from '@/app/ui/common/FormErrorMessage';
 export default function LoginForm() {
   const [formState, action] = useFormState(loginAction, { message: '' });
   return (
@@ -33,13 +34,10 @@ export default function LoginForm() {
             name="password"
             id="password"
             className="border rounded p-2 w-full"
+            type="password"
           />
         </div>
-        {formState.message ? (
-          <div className="my-2 p-2 bg-red-200 border rounded border-red-400 text-sm">
-            {formState.message}
-          </div>
-        ) : null}
+        <FormErrorMessage>{formState.message}</FormErrorMessage>
         <FormButton
           className="rounded p-2 bg-orange-300 mt-7"
           pendingText="Logging in..."
