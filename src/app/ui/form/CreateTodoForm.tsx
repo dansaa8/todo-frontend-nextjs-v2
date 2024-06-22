@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import * as actions from '@/app/actions';
 import FormButton from '@/app/ui/common/FormButton';
+import FormErrorMessage from '@/app/ui/common/FormErrorMessage';
 
 export default function CreateTodoForm() {
   const [formState, action] = useFormState(actions.createTodo, { message: '' });
@@ -40,11 +41,7 @@ export default function CreateTodoForm() {
           </div>
           <DateField label="Date" name="date" id="date" />
           <TimeField label="Time" name="time" id="time" />
-          {formState.message ? (
-            <div className="my-2 p-2 bg-red-200 border rounded border-red-400">
-              {formState.message}
-            </div>
-          ) : null}
+          <FormErrorMessage>{formState.message}</FormErrorMessage>
           <FormButton
             type="submit"
             className="rounded p-2 bg-orange-300"

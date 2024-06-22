@@ -15,7 +15,7 @@ export default function LoginForm() {
       <h3 className="font-bold m-1 pb-5 text-center text-xl border border-b-stone-300">
         Login
       </h3>
-      <div className="flex flex-col gap-5 mt-4">
+      <div className="flex flex-col gap-3 mt-4">
         <div>
           <label className="w-12" htmlFor="username">
             Username
