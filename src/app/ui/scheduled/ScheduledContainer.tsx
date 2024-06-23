@@ -3,7 +3,7 @@ import { Todo } from '@/app/lib/definitions';
 import TodoCard from '@/app/ui/scheduled/card/todo-card';
 import { IconButton } from '@mui/material';
 import CalendarIcon from '@/app/ui/svg/calendar-icon';
-import CalendarWithTodos from '@/app/ui/scheduled/calendar/CalenderWithTodos';
+import CalendarWithTodos from '@/app/ui/scheduled/calendar/CalendarWithTodos';
 import CalendarModal from '@/app/ui/scheduled/calendar/CalendarModal';
 import { useState } from 'react';
 
@@ -56,12 +56,13 @@ export default function ScheduledContainer({ todos }: ScheduledContainerProps) {
         {filteredTodos.map((todo: Todo) => {
           return <TodoCard key={todo.id} todo={todo} />;
         })}
-        <CalendarWithTodos todos={todos} handleDateChange={handleDateChange} />
+        {/* <CalendarWithTodos todos={todos} handleDateChange={handleDateChange} /> */}
       </div>
       {showCalendarModal && (
         <CalendarModal
           handleModalClose={handleModalClose}
           handleDateChange={handleDateChange}
+          todos={todos}
         />
       )}
     </>

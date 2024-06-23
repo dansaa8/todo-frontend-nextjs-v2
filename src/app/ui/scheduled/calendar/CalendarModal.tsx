@@ -6,15 +6,18 @@ import CancelIcon from '@/app/ui/svg/cancel-icon';
 import FormButton from '@/app/ui/common/FormButton';
 import { deleteTodo } from '@/app/actions';
 import { useSnackbar } from '@/app/providers/snackbar-context';
+import CalendarWithTodos from '@/app/ui/scheduled/calendar/CalendarWithTodos';
 
 interface CalendarModalProps {
   handleModalClose: () => void;
   handleDateChange: (date:Date) => void;
+  todos: Todo[]
 }
 
 export default function CalendarModal({
   handleModalClose,
-  handleDateChange
+  handleDateChange,
+  todos
 }: CalendarModalProps) {
 //   const { showSnackbar } = useSnackbar();
 
@@ -43,6 +46,7 @@ export default function CalendarModal({
 
   const handleDateClick = async (formData: FormData) => {
     // await deleteTodo(formData);
+    5
     // showSnackbar(`${todo?.name} was deleted.`);
     handleModalClose();
   };
@@ -56,7 +60,7 @@ export default function CalendarModal({
         <div className="fixed inset-0"></div>
       </div>
       <div
-        className="z-20 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 bg-white h-80 w-96 rounded-xl flex flex-col justify-between"
+        className="z-20 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 bg-white gap-5  w-96 rounded-xl flex flex-col justify-between"
         ref={modalContentRef}
       >
         <CancelIcon
@@ -66,6 +70,7 @@ export default function CalendarModal({
         <h3 className="font-bold text-stone-700 col-start-2 col-end-4 text-center">
             Select a Date
         </h3>
+        <CalendarWithTodos todos={todos} handleDateChange={handleDateChange}/>
         <div className="flex justify-around">
           <Button
             className="rounded-xl bg-gray-200 px-4 py-2 text-gray-800 z-0 hover:bg-gray-300"
