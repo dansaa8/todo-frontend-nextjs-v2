@@ -50,7 +50,6 @@ export default function DeleteModal({
   return ReactDOM.createPortal(
     <form action={handleDelete}>
       <div
-        // onClick={onClose}
         className="z-10 fixed inset-0 bg-gray-300 opacity-80 flex justify-center items-center"
       >
         <div className="fixed inset-0"></div>
@@ -71,7 +70,8 @@ export default function DeleteModal({
         <div className="flex justify-around">
           <input type="hidden" name="id" value={todo.id} />
           <FormButton
-            className="rounded-xl bg-red-600 px-4 py-2 text-white z-0 hover:bg-red-700" pendingText=""
+            className="rounded-xl bg-red-600 px-4 py-2 text-white z-0 hover:bg-red-700"
+            pendingText=""
           >
             Delete
           </FormButton>

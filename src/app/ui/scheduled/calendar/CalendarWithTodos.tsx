@@ -1,22 +1,23 @@
-// components/CalendarWithTodos.tsx
-"use client";
+'use client';
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
-import CalendarTileProperties from "react-calendar"
+import CalendarTileProperties from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Todo } from '@/app/lib/definitions';
-
 
 interface CalendarWithTodosProps {
   todos: Todo[];
   handleDateChange: (date: Date) => void;
 }
 
-const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({ todos, handleDateChange }) => {
+const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
+  todos,
+  handleDateChange,
+}) => {
   const [dateList, setDateList] = useState<Date[]>([]);
 
   useEffect(() => {
-    const datesWithTodos = todos.map(todo => new Date(todo.deadline));
+    const datesWithTodos = todos.map((todo) => new Date(todo.deadline));
     setDateList(datesWithTodos);
   }, [todos]);
 
@@ -24,14 +25,14 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({ todos, handleDate
     // Disable all dates initially
     if (view === 'month') {
       // Enable dates that have todos
-      return !dateList.some(d => d.toDateString() === date.toDateString());
+      return !dateList.some((d) => d.toDateString() === date.toDateString());
     }
     return false;
   };
 
   const tileClassName = ({ date, view }: CalendarTileProperties): string => {
     if (view === 'month') {
-      return dateList.some(d => d.toDateString() === date.toDateString())
+      return dateList.some((d) => d.toDateString() === date.toDateString())
         ? 'clickable-date'
         : 'unclickable-date';
     }
@@ -44,9 +45,9 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({ todos, handleDate
         tileDisabled={tileDisabled}
         tileClassName={tileClassName}
         onClickDay={(date) => {
-          if (dateList.some(d => d.toDateString() === date.toDateString())) {
+          if (dateList.some((d) => d.toDateString() === date.toDateString())) {
             // alert(`You clicked on a date with todos: ${date.toDateString()}`);
-            handleDateChange(date)
+            handleDateChange(date);
           }
         }}
       />

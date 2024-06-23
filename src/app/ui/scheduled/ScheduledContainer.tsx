@@ -30,6 +30,7 @@ export default function ScheduledContainer({ todos }: ScheduledContainerProps) {
 
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);
+    handleModalClose();
   };
 
   const handleModalClose = () => {

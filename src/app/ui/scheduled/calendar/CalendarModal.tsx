@@ -1,26 +1,21 @@
-import { useEffect, useRef, useContext } from 'react';
+import { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from '@nextui-org/react';
 import { Todo } from '@/app/lib/definitions';
 import CancelIcon from '@/app/ui/svg/cancel-icon';
-import FormButton from '@/app/ui/common/FormButton';
-import { deleteTodo } from '@/app/actions';
-import { useSnackbar } from '@/app/providers/snackbar-context';
 import CalendarWithTodos from '@/app/ui/scheduled/calendar/CalendarWithTodos';
 
 interface CalendarModalProps {
   handleModalClose: () => void;
-  handleDateChange: (date:Date) => void;
-  todos: Todo[]
+  handleDateChange: (date: Date) => void;
+  todos: Todo[];
 }
 
 export default function CalendarModal({
   handleModalClose,
   handleDateChange,
-  todos
+  todos,
 }: CalendarModalProps) {
-//   const { showSnackbar } = useSnackbar();
-
   const modalContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -44,19 +39,9 @@ export default function CalendarModal({
     };
   }, [handleModalClose]);
 
-  const handleDateClick = async (formData: FormData) => {
-    // await deleteTodo(formData);
-    5
-    // showSnackbar(`${todo?.name} was deleted.`);
-    handleModalClose();
-  };
-
   return ReactDOM.createPortal(
-    <div >
-      <div
-        // onClick={onClose}
-        className="z-10 fixed inset-0 bg-gray-300 opacity-80 flex justify-center items-center"
-      >
+    <div>
+      <div className="z-10 fixed inset-0 bg-gray-300 opacity-80 flex justify-center items-center">
         <div className="fixed inset-0"></div>
       </div>
       <div
@@ -68,9 +53,9 @@ export default function CalendarModal({
           onClick={handleModalClose}
         />
         <h3 className="font-bold text-stone-700 col-start-2 col-end-4 text-center">
-            Select a Date
+          Select a Date
         </h3>
-        <CalendarWithTodos todos={todos} handleDateChange={handleDateChange}/>
+        <CalendarWithTodos todos={todos} handleDateChange={handleDateChange} />
         <div className="flex justify-around">
           <Button
             className="rounded-xl bg-gray-200 px-4 py-2 text-gray-800 z-0 hover:bg-gray-300"
