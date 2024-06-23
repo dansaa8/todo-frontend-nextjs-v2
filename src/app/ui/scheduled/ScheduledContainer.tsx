@@ -64,6 +64,7 @@ export default function ScheduledContainer({ todos }: ScheduledContainerProps) {
           handleModalClose={handleModalClose}
           handleDateChange={handleDateChange}
           todos={todos}
+          selectedDate={selectedDate}
         />
       )}
     </>
