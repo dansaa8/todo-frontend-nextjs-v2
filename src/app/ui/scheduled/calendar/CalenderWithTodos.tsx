@@ -45,7 +45,7 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({ todos, handleDate
         tileClassName={tileClassName}
         onClickDay={(date) => {
           if (dateList.some(d => d.toDateString() === date.toDateString())) {
-            alert(`You clicked on a date with todos: ${date.toDateString()}`);
+            // alert(`You clicked on a date with todos: ${date.toDateString()}`);
             handleDateChange(date)
           }
         }}
