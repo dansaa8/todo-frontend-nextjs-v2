@@ -64,7 +64,7 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
             handleDateChange(date);
           }
         }}
-      />
+      />  
     </div>
   );
 };

@@ -33,12 +33,15 @@ export default function ScheduledContainer({ todos }: ScheduledContainerProps) {
 
   return (
     <>
-      <section className="grid grid-cols-4 items-center border mb-5">
-        <h2 className="pb-5 col-start-1 justify-self-center">
+      <section className="grid grid-cols-3 items-center border mb-5">
+        <h2 className="mt-3 col-start-1 justify-self-center font-bold text-lg">
+          {utils.getRelativeDateLabel(selectedDate)}
+        </h2>
+        <h2 className='mt-3 col-start-2 justify-self-center font-medium'>
           {selectedDate.toLocaleDateString()}
         </h2>
         <IconButton
-          className="text-amber-600 col-start-4 justify-self-center"
+          className="text-amber-600 col-start-3 justify-self-center"
           onClick={() => {
             setShowCalendarModal(true);
           }}
