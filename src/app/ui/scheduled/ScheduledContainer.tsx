@@ -3,10 +3,8 @@ import { Todo } from '@/app/lib/definitions';
 import TodoCard from '@/app/ui/scheduled/card/todo-card';
 import { IconButton } from '@mui/material';
 import CalendarIcon from '@/app/ui/svg/calendar-icon';
-import CalendarWithTodos from '@/app/ui/scheduled/calendar/CalendarWithTodos';
 import CalendarModal from '@/app/ui/scheduled/calendar/CalendarModal';
 import { useState } from 'react';
-import { select } from '@nextui-org/react';
 import * as utils from '@/utils/index';
 
 type ScheduledContainerProps = {
@@ -32,12 +30,25 @@ export default function ScheduledContainer({ todos }: ScheduledContainerProps) {
   };
 
   const formattedDate = utils.formatDateWithSuffix(selectedDate);
+  const relativeDateLabel = utils.getRelativeDateLabel(selectedDate);
+  let containerColor;
+
+  if (relativeDateLabel.includes('Today'))
+    containerColor = 'bg-yellow-50 border-yellow-100';
+  else if (
+    relativeDateLabel.includes('days ago') ||
+    relativeDateLabel.includes('Yesterday')
+  )
+    containerColor = 'bg-red-100 border border-red-200';
+  else containerColor = 'bg-blue-50 border border-blue-100';
 
   return (
     <>
-      <section className="grid grid-cols-3 items-center border mb-5">
+      <section
+        className={`grid grid-cols-3 items-center border mb-5 ${containerColor} pb-2`}
+      >
         <h2 className="mt-3 col-start-1 justify-self-center font-bold text-lg">
-          {utils.getRelativeDateLabel(selectedDate)}
+          {relativeDateLabel}
         </h2>
         <div className="mt-3 col-start-2 justify-self-center">
           <p className="text-center">{formattedDate[0]}</p>
