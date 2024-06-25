@@ -11,9 +11,9 @@ interface TodoCardProps {
 
 export default function TodoCard({ todo }: TodoCardProps) {
   return (
-    <div className="w-full border border-stone-300 rounded-lg p-3 bg-white shadow-lg">
-      <section className="grid grid-cols-4 pb-4 mb-4 px-2 border-b border-gray-200">
-        <h3 className="font-bold text-stone-700 col-start-2 col-end-4 text-center">
+    <div className="w-full border border-stone-300 rounded-lg bg-stone-50 shadow-lg">
+      <section className="grid grid-cols-3 p-1 mb-4 px-2 border-b border-gray-200 bg-stone-200">
+        <h3 className="font-bold italic text-stone-700 text-sm col-start-2 flex justify-center items-center">
           {todo!.name}
         </h3>
         <TimeBadge
@@ -23,15 +23,15 @@ export default function TodoCard({ todo }: TodoCardProps) {
         ></TimeBadge>
       </section>
 
-      <section className="grid grid-cols-4 mb-4 mt-2">
-        <IconButton className="col-start-1 justify-self-center">
+      <section className="flex justify-around">
+        <IconButton className="">
           <InfoIcon />
         </IconButton>
         <Button
           startIcon={<CheckMarkIcon />}
           variant="contained"
           color="inherit"
-          className="col-start-2 col-end-4 justify-self-center max-w-32"
+          className="max-w-32 my-2"
         >
           Done
         </Button>

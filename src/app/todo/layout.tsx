@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <SideNav />
       <main className="p-4">
-        <div className="bg-stone-200 border rounded-md">{children}</div>
+        <div className=" border rounded-md">{children}</div>
       </main>
     </>
   );

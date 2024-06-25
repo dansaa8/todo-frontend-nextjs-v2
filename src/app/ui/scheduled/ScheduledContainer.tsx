@@ -34,7 +34,7 @@ export default function ScheduledContainer({ todos }: ScheduledContainerProps) {
   let containerColor;
 
   if (relativeDateLabel.includes('Today'))
-    containerColor = 'bg-yellow-50 border-yellow-100';
+    containerColor = 'bg-yellow-50 border-yellow-200';
   else if (
     relativeDateLabel.includes('days ago') ||
     relativeDateLabel.includes('Yesterday')
@@ -45,7 +45,7 @@ export default function ScheduledContainer({ todos }: ScheduledContainerProps) {
   return (
     <>
       <section
-        className={`grid grid-cols-3 items-center border mb-5 ${containerColor} pb-2`}
+        className={`grid grid-cols-3 items-center border mb-5 ${containerColor} rounded-t pb-2`}
       >
         <h2 className="mt-3 col-start-1 justify-self-center font-bold text-lg">
           {relativeDateLabel}
@@ -67,12 +67,12 @@ export default function ScheduledContainer({ todos }: ScheduledContainerProps) {
         </IconButton>
       </section>
 
-      <div className="flex flex-col gap-8 items-center">
+      <section className="flex flex-col gap-8 items-center p-1 mb-20">
         {filteredTodos.map((todo: Todo) => {
           return <TodoCard key={todo.id} todo={todo} />;
         })}
         {/* <CalendarWithTodos todos={todos} handleDateChange={handleDateChange} /> */}
-      </div>
+      </section>
       {showCalendarModal && (
         <CalendarModal
           handleModalClose={handleModalClose}
