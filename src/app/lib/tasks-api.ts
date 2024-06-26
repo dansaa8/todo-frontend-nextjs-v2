@@ -66,4 +66,18 @@ const deleteById = async (id: number) => {
   }
 };
 
-export { getAll, getById, create, deleteById };
+const setCompleteById = async (id: number) => {
+  try {
+    const response = await fetch(`${TASKS_URL}/${id}`, {
+      method: 'PATCH',
+      headers: headers(),
+      body: JSON.stringify({ completedAt: new Date() }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+export { getAll, getById, create, deleteById, setCompleteById };

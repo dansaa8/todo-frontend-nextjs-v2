@@ -82,8 +82,11 @@ export async function deleteTodo(formData: FormData) {
   } catch (error) {}
 }
 
-async function editTodo() {
-  console.log('edit todo-action called');
+export async function completeTodo(id: number) {
+  try {
+    await todoApi.setCompleteById(id);
+    revalidatePath('/todo/scheduled');
+  } catch (error) {}
 }
 
 export {};

@@ -4,6 +4,7 @@ import TimeBadge from '@/app/ui/scheduled/card/time-badge';
 import HamburgerMenu from '@/app/ui/scheduled/card/hamburger-menu';
 import InfoIcon from '@/app/ui/svg/info-icon';
 import CheckMarkIcon from '@/app/ui/svg/checkmark-icon';
+import * as actions from '@/app/actions/index';
 
 interface TodoCardProps {
   todo: Todo;
@@ -32,6 +33,9 @@ export default function TodoCard({ todo }: TodoCardProps) {
           variant="contained"
           color="inherit"
           className="max-w-32 my-2"
+          onClick={() => {
+            actions.completeTodo(todo.id);
+          }}
         >
           Done
         </Button>
