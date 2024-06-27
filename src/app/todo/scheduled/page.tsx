@@ -1,10 +1,8 @@
 import { getAll } from '@/app/lib/tasks-api';
-import ScheduledContainer from '@/app/ui/scheduled/ScheduledContainer';
+import TodosWrapper from '@/app/ui/scheduled/TodosWrapper';
 
 export default async function Page() {
   const todos = await getAll();
 
-  return (
-    <ScheduledContainer todos={todos}/>
-  );
+  return <TodosWrapper todos={todos} />;
 }
