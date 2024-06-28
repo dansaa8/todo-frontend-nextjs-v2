@@ -73,6 +73,9 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
 
   const filteredTodos = activeFilter === 'todo' ? tasks.todo : tasks.done;
 
+  const disabledTextColor = 'text-gray-400 normal case';
+
+
   return (
     <>
       <section
@@ -101,23 +104,22 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
       <section className="flex justify-center gap-2 mb-3">
         <Button
           size='small'
-          endIcon={<TasksTodoIcon className={`w-4 h-4`} />}
-          variant={activeFilter === 'todo' ? "contained" : "outlined"}
-          // className="bg-amber-200 hover:bg-amber-400"
+          className={activeFilter ===  'todo' ? 'bg-pink-100 hover:bg-pink-200' : 'bg-gray-50 hover:bg-pink-200'}
+          endIcon={<TasksTodoIcon className={tasks.todo.length === 0 ? `text-gray-300 w-4 h-4` : 'text-gray-800 w-4 h-4'} />}
           onClick={() => setActiveFilter('todo')}
           disabled={tasks.todo.length === 0}
         >
-          <p className="text-gray-800 text-sm normal-case">Todo</p>
+          <p className={tasks.todo.length === 0 ? 'text-gray-300 normal-case' : 'text-gray-800 normal-case'}>Todo</p>
         </Button>
+
         <Button
           size='small'
-          endIcon={<TasksDoneIcon className={`w-4 h-4`} />}
-          variant={activeFilter === 'done' ? "contained" : "outlined"}
-          // className="bg-green-200 hover:bg-green-400"
+          className={activeFilter ===  'done' ? 'bg-lime-100 hover:bg-lime-200' : 'bg-gray-50'}
+          endIcon={<TasksDoneIcon className={tasks.done.length === 0 ? `text-gray-300 w-4 h-4` : 'text-gray-800 w-4 h-4'} />}
           onClick={() => setActiveFilter('done')}
           disabled={tasks.done.length === 0}
         >
-          <p className="text-gray-800 normal-case">Done</p>
+          <p className={tasks.done.length === 0 ? 'text-gray-300 normal-case' :"text-gray-800 normal-case"}>Done</p>
         </Button>
       </section>
 

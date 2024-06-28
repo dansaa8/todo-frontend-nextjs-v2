@@ -1,4 +1,4 @@
-export default function ClockIcon(props: React.SVGProps<SVGSVGElement>) {
+export default function CalendarIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       width="60"
