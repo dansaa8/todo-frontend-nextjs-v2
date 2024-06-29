@@ -2,23 +2,25 @@ import React from 'react';
 import ClockIcon from '@/app/ui/svg/clock-icon';
 
 type TimeBadgeProps = {
-  color: 'amber' | 'green';
+  color: 'yellow' | 'green';
   dateTimeValue: Date;
   includeDate: boolean;
+  children: React.ReactNode
 };
 
 export default function TimeBadge({
   color,
   dateTimeValue,
   includeDate,
+  children
 }: TimeBadgeProps) {
   let border =
-    'flex items-center justify-center justify-self-center w-20 h-6 gap-1 text-xs font-medium rounded-full border';
+    'flex items-center justify-center justify-self-center p-2 h-6 gap-1 text-xs font-medium rounded-full border';
   let textColor;
 
-  if (color === 'amber') {
-    border += ' border-amber-500 text-amber-500';
-    textColor = 'text-amber-500';
+  if (color === 'yellow') {
+    border += ' border-yellow-600 text-yellow-600';
+    textColor = 'text-yellow-600';
   }
 
   if (color === 'green') {
@@ -38,7 +40,8 @@ export default function TimeBadge({
 
   return (
     <div className={border}>
-      <ClockIcon className={`w-4 h-4 ${textColor}`} />
+      {children}
+      <ClockIcon className={`w-5 h-5 ${textColor}`} />
       <span className={textColor}>{timeString}</span>
     </div>
   );

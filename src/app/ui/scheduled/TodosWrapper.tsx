@@ -65,10 +65,16 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
   if (relativeDateLabel.includes('Today'))
     containerColor = 'bg-yellow-50 border-yellow-200';
   else if (
-    relativeDateLabel.includes('days ago') ||
-    relativeDateLabel.includes('Yesterday')
-  )
-    containerColor = 'bg-red-100 border border-red-200';
+    (relativeDateLabel.includes('days ago') ||
+    relativeDateLabel.includes('Yesterday') )
+  ) {
+    if (tasks.todo.length > 0 ) {
+      containerColor = 'bg-red-100 border border-red-200';
+    } else {
+      containerColor = 'bg-green-200 border border-green-300'
+    }
+  }
+   
   else containerColor = 'bg-blue-50 border border-blue-100';
 
   const filteredTodos = activeFilter === 'todo' ? tasks.todo : tasks.done;
@@ -92,7 +98,7 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
         </div>
 
         <IconButton
-          className="text-amber-600 col-start-3 justify-self-center"
+          className="text-black-800 col-start-3 justify-self-center"
           onClick={() => {
             setShowCalendarModal(true);
           }}
@@ -102,28 +108,33 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
       </section>
 
       <section className="flex justify-center gap-2 mb-3">
-        <Button
-          size='small'
-          className={activeFilter ===  'todo' ? 'bg-pink-200 hover:bg-pink-300' : 'bg-gray-100 hover:bg-pink-300'}
-          endIcon={<TasksTodoIcon className={tasks.todo.length === 0 ? `text-gray-300 w-4 h-4` : 'text-gray-800 w-4 h-4'} />}
-          onClick={() => setActiveFilter('todo')}
-          disabled={tasks.todo.length === 0}
-        >
-          <p className={tasks.todo.length === 0 ? 'text-gray-300 normal-case' : 'text-gray-800 normal-case'}>Todo</p>
-        </Button>
+        {tasks.todo.length > 0 && (
+                <Button
+                size='small'
+                className={activeFilter ===  'todo' ? 'bg-sky-200 hover:bg-sky-300' : 'bg-gray-100 hover:bg-sky-300'}
+                endIcon={<TasksTodoIcon className={tasks.todo.length === 0 ? `text-gray-300 w-4 h-4` : 'text-gray-800 w-4 h-4'} />}
+                onClick={() => setActiveFilter('todo')}
+                disabled={tasks.done.length === 0}
+              >
+                <p className={tasks.todo.length === 0 ? 'text-gray-300 normal-case' : 'text-gray-800 normal-case'}>Todo</p>
+              </Button>
+        )}
 
+        {tasks.done.length > 0 && (
         <Button
-          size='small'
-          className={activeFilter ===  'done' ? 'bg-lime-200 hover:bg-lime-300' : 'bg-gray-100 hover:bg-lime-300'}
-          endIcon={<TasksDoneIcon className={tasks.done.length === 0 ? `text-gray-300 w-4 h-4` : 'text-gray-800 w-4 h-4'} />}
-          onClick={() => setActiveFilter('done')}
-          disabled={tasks.done.length === 0}
-        >
-          <p className={tasks.done.length === 0 ? 'text-gray-300 normal-case' :"text-gray-800 normal-case"}>Done</p>
-        </Button>
+        size='small'
+        className={activeFilter ===  'done' ? 'bg-lime-200 hover:bg-lime-300' : 'bg-gray-100 hover:bg-lime-300'}
+        endIcon={<TasksDoneIcon className={tasks.done.length === 0 ? `text-gray-300 w-4 h-4` : 'text-gray-800 w-4 h-4'} />}
+        onClick={() => setActiveFilter('done')}
+        disabled={tasks.todo.length === 0}
+      >
+        <p className={tasks.done.length === 0 ? 'text-gray-300 normal-case' :"text-gray-800 normal-case"}>Done</p>
+      </Button>
+        )}
+
       </section>
 
-      <section className="flex flex-col gap-8 items-center p-1 mb-20">
+      <section className="flex flex-col gap-8 items-center p-4 mb-10 mt-6 mx-2 bg-stone-50 border border-stone-200">
         {loading ? (
           <p className="text-gray-500">Loading tasks...</p>
         ) : (

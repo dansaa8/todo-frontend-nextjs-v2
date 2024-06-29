@@ -11,35 +11,47 @@ interface TodoCardProps {
 }
 
 export default function TodoCard({ todo }: TodoCardProps) {
+  // let todoColor;
+  const todoColor = todo.completedAt ? 'bg-green-50' : 'bg-sky-50';
   return (
-    <div className="w-full border border-stone-300 rounded-lg bg-stone-50 shadow-lg">
-      <section className="grid grid-cols-3 p-1 mb-4 px-2 border-b border-gray-200 bg-stone-200">
+    <div className={`w-full border border-stone-300 rounded-lg bg-stone-50 shadow-lg pb-2 ${todoColor}`}>
+      <section className="flex justify-between p-1 mb-2 px-2 border-b border-stone-200 bg-white">
         <h3 className="font-bold italic text-stone-700 text-sm col-start-2 flex justify-center items-center">
           {todo!.name}
         </h3>
-        <TimeBadge
-          color="amber"
+        {todo.completedAt ? (
+                  <TimeBadge
+                  color="green"
+                  dateTimeValue={new Date(todo!.completedAt)}
+                  includeDate={false}
+                >Completed at: </TimeBadge>
+        ) : (
+          <TimeBadge
+          color="yellow"
           dateTimeValue={new Date(todo!.deadline)}
           includeDate={false}
-        ></TimeBadge>
+        >Deadline: </TimeBadge>
+        )}
+
       </section>
 
       <section className="flex justify-around">
-        <IconButton className="">
+        {/* <IconButton className="">
           <InfoIcon />
-        </IconButton>
+        </IconButton> */}
+          <HamburgerMenu todo={todo} />
+        <div className=' w-40 rounded border border-stone-300 bg-white'><p className='p-1'>{todo.description}</p></div>
         <Button
-          startIcon={<CheckMarkIcon />}
           variant="contained"
           color="inherit"
-          className="max-w-32 my-2"
+          className="flex justify-center bg-stone-200 hover:bg-lime-300"
           onClick={() => {
             actions.completeTodo(todo.id);
           }}
         >
-          Done
+          <CheckMarkIcon />
+          {/* Done */}
         </Button>
-        <HamburgerMenu todo={todo} />
       </section>
     </div>
   );
