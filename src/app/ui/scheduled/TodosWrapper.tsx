@@ -104,7 +104,7 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
       <section className="flex justify-center gap-2 mb-3">
         <Button
           size='small'
-          className={activeFilter ===  'todo' ? 'bg-pink-100 hover:bg-pink-200' : 'bg-gray-50 hover:bg-pink-200'}
+          className={activeFilter ===  'todo' ? 'bg-pink-200 hover:bg-pink-300' : 'bg-gray-100 hover:bg-pink-300'}
           endIcon={<TasksTodoIcon className={tasks.todo.length === 0 ? `text-gray-300 w-4 h-4` : 'text-gray-800 w-4 h-4'} />}
           onClick={() => setActiveFilter('todo')}
           disabled={tasks.todo.length === 0}
@@ -114,7 +114,7 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
 
         <Button
           size='small'
-          className={activeFilter ===  'done' ? 'bg-lime-100 hover:bg-lime-200' : 'bg-gray-50'}
+          className={activeFilter ===  'done' ? 'bg-lime-200 hover:bg-lime-300' : 'bg-gray-100 hover:bg-lime-300'}
           endIcon={<TasksDoneIcon className={tasks.done.length === 0 ? `text-gray-300 w-4 h-4` : 'text-gray-800 w-4 h-4'} />}
           onClick={() => setActiveFilter('done')}
           disabled={tasks.done.length === 0}
