@@ -1,21 +1,30 @@
-import { useEffect, useRef, useContext } from 'react';
+import { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from '@nextui-org/react';
 import { Todo } from '@/app/lib/definitions';
 import CancelIcon from '@/app/ui/svg/cancel-icon';
 import FormButton from '@/app/ui/common/FormButton';
-import { deleteTodo } from '@/app/actions';
 import { useSnackbar } from '@/app/providers/snackbar-context';
 
-interface DeleteModalProps {
+interface ModalProps {
   handleModalClose: () => void;
   todo: Todo;
+  actionMethod: (formData: FormData) => Promise<void>;
+  buttonColor?: string;
+  buttonText?: string;
+  modalText?: string;
+  snackbarMessage?: string;
 }
 
-export default function DeleteModal({
+export default function ActionModal({
   handleModalClose,
   todo,
-}: DeleteModalProps) {
+  actionMethod,
+  buttonColor,
+  buttonText,
+  modalText,
+  snackbarMessage,
+}: ModalProps) {
   const { showSnackbar } = useSnackbar();
 
   const modalContentRef = useRef<HTMLDivElement>(null);
@@ -41,17 +50,15 @@ export default function DeleteModal({
     };
   }, [handleModalClose]);
 
-  const handleDelete = async (formData: FormData) => {
-    await deleteTodo(formData);
-    showSnackbar(`${todo?.name} was deleted.`);
+  const handleSubmit = async (formData: FormData) => {
+    await actionMethod(formData);
+    showSnackbar(`${todo?.name} ${snackbarMessage}`);
     handleModalClose();
   };
 
   return ReactDOM.createPortal(
-    <form action={handleDelete}>
-      <div
-        className="z-10 fixed inset-0 bg-gray-300 opacity-80 flex justify-center items-center"
-      >
+    <form action={handleSubmit}>
+      <div className="z-10 fixed inset-0 bg-gray-300 opacity-80 flex justify-center items-center">
         <div className="fixed inset-0"></div>
       </div>
       <div
@@ -66,14 +73,14 @@ export default function DeleteModal({
           {todo!.name}
         </h3>
 
-        <p className="text-sm">Are you sure you want to remove this task?</p>
+        <p className="text-sm">{modalText}</p>
         <div className="flex justify-around">
           <input type="hidden" name="id" value={todo.id} />
           <FormButton
-            className="rounded-xl bg-red-600 px-4 py-2 text-white z-0 hover:bg-red-700"
+            className={`rounded-xl px-4 py-2 z-0 ${buttonColor}`}
             pendingText=""
           >
-            Delete
+            {buttonText}
           </FormButton>
           <Button
             className="rounded-xl bg-gray-200 px-4 py-2 text-gray-800 z-0 hover:bg-gray-300"
