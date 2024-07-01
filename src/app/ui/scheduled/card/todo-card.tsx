@@ -15,15 +15,15 @@ export default function TodoCard({ todo }: TodoCardProps) {
   const todoColor = todo.completedAt ? 'bg-green-50' : 'bg-sky-50';
   return (
     <div className={`w-full border border-stone-300 rounded-lg bg-stone-50 shadow-lg pb-2 ${todoColor}`}>
-      <section className="flex justify-between p-1 mb-2 px-2 border-b border-stone-200 bg-white">
-        <h3 className="font-bold italic text-stone-700 text-sm col-start-2 flex justify-center items-center">
+      <section className="flex justify-between p-1 mb-2 px-2 gap-2 border-b border-stone-200 bg-white">
+        <h3 className="font-bold italic text-stone-700 text-sm flex justify-center items-center">
           {todo!.name}
         </h3>
         {todo.completedAt ? (
                   <TimeBadge
                   color="green"
                   dateTimeValue={new Date(todo!.completedAt)}
-                  includeDate={false}
+                  includeDate={true}
                 >Completed at: </TimeBadge>
         ) : (
           <TimeBadge
@@ -44,7 +44,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
         <Button
           variant="contained"
           color="inherit"
-          className="flex justify-center bg-stone-200 hover:bg-lime-300"
+          className="flex justify-center bg-stone-200 hover:bg-lime-300 mr-0.5"
           onClick={() => {
             actions.completeTodo(todo.id);
           }}

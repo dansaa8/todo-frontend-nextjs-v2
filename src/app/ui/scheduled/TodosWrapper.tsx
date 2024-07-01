@@ -134,7 +134,7 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
 
       </section>
 
-      <section className="flex flex-col gap-8 items-center p-4 mb-10 mt-6 mx-2 bg-stone-50 border border-stone-200">
+      <section className="flex flex-col gap-8 items-center p-2 mb-10 mt-6 mx-2 bg-stone-200 border rounded border-stone-400">
         {loading ? (
           <p className="text-gray-500">Loading tasks...</p>
         ) : (
@@ -143,7 +143,7 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
               return <TodoCard key={todo.id} todo={todo} />;
             })
           ) : (
-            <p className="text-gray-500">No tasks for today</p>
+            <p className="text-gray-500">No tasks for the day</p>
           )
         )}
       </section>
