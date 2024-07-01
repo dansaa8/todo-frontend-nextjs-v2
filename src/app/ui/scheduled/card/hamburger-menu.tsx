@@ -5,7 +5,8 @@ import { Todo } from '@/app/lib/definitions';
 import HamburgerIcon from '@/app/ui/svg/hamburger-icon';
 import DeleteIcon from '@/app/ui/svg/delete-icon';
 import EditIcon from '@/app/ui/svg/edit-icon';
-import DeleteModal from '@/app/ui/scheduled/card/delete-modal';
+import ActionModal from '@/app/ui/scheduled/card/ActionModal';
+import * as actions from '@/app/actions/index';
 import Link from 'next/link';
 
 interface HamburgerMenuProps {
@@ -79,7 +80,15 @@ export default function HamburgerMenu({ todo }: HamburgerMenuProps) {
         </ul>
       )}
       {showDeleteModal && (
-        <DeleteModal handleModalClose={handleModalClose} todo={todo} />
+        <ActionModal
+          handleModalClose={handleModalClose}
+          todo={todo}
+          actionMethod={actions.deleteTodo}
+          buttonColor="bg-red-600 hover:bg-red-700"
+          buttonText='Delete'
+          modalText="Are you sure you want to remove this task?"
+          snackbarMessage='was deleted.'
+        />
       )}
     </div>
   );

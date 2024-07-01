@@ -89,4 +89,12 @@ export async function completeTodo(id: number) {
   } catch (error) {}
 }
 
+export async function undoTodo(formData: FormData) {
+  const id = formData.get('id');
+  try {
+    await todoApi.setCompletedAtToNullById(id);
+    revalidatePath('/todo/scheduled');
+  } catch (error) {}
+}
+
 export {};

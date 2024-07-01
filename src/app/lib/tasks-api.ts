@@ -80,4 +80,18 @@ const setCompleteById = async (id: number) => {
   }
 };
 
-export { getAll, getById, create, deleteById, setCompleteById };
+const setCompletedAtToNullById = async (id: number) => {
+  try {
+    const response = await fetch(`${TASKS_URL}/${id}`, {
+      method: 'PATCH',
+      headers: headers(),
+      body: JSON.stringify({ completedAt: null }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+export { getAll, getById, create, deleteById, setCompleteById, setCompletedAtToNullById };
