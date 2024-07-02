@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Todo } from '@/app/lib/definitions';
+import { select } from '@nextui-org/react';
 
 interface CalendarWithTodosProps {
   todos: Todo[];
@@ -16,10 +17,23 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
   selectedDate,
 }) => {
   const [dateList, setDateList] = useState<Date[]>([]);
+  const [urgentDates, setUrgentDates] = useState<Date[]>([]);
+  const [completedDates, setCompletedDates] = useState<Date[]>([]);
 
   useEffect(() => {
     const datesWithTodos = todos.map((todo) => new Date(todo.deadline));
     setDateList(datesWithTodos);
+
+    const today = new Date();
+    const urgentDates = todos
+      .filter((todo) => !todo.completedAt && new Date(todo.deadline) < today)
+      .map((todo) => new Date(todo.deadline));
+    setUrgentDates(urgentDates);
+
+    const completedDates = todos
+      .filter((todo) => todo.completedAt && new Date(todo.deadline) < today)
+      .map((todo) => new Date(todo.deadline));
+    setCompletedDates(completedDates);
   }, [todos]);
 
   const tileDisabled = ({
@@ -43,14 +57,45 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
     view: string;
   }): string => {
     if (view === 'month') {
-      if (dateList.some((d) => d.toDateString() === date.toDateString())) {
-        return 'clickable-date';
+      let className = '';
+
+      // Check if the date has urgent todos
+      const isUrgent = urgentDates.some(
+        (d) => d.toDateString() === date.toDateString()
+      );
+
+      // Check if the date is selected
+      const isSelected = date.toDateString() === selectedDate.toDateString();
+
+      // Check if the date has completed todos and is in the past
+      const isCompletedAndInThePast = completedDates.some(
+        (d) => d.toDateString() === date.toDateString() && !isToday(date)
+      );
+
+      if (isUrgent) {
+        className += isSelected ? 'urgentSelected' : 'urgent';
+      } else if (isCompletedAndInThePast) {
+        className += isSelected ? 'completedSelected' : 'completed';
+      } else if (isSelected && isToday(date)) {
+        className += 'todaySelected';
+      } else if (isToday(date)) {
+        className += 'today';
+      } else if (date > new Date()) {
+        className += isSelected ? 'futureSelected' : 'future';
       }
-      if (date.toDateString() === selectedDate.toDateString()) {
-        return 'selected-date';
-      }
+
+      return className.trim();
     }
     return '';
+  };
+
+  const isToday = (date: Date): boolean => {
+    const today = new Date();
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    );
   };
 
   return (
@@ -64,7 +109,7 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
             handleDateChange(date);
           }
         }}
-      />  
+      />
     </div>
   );
 };

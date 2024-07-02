@@ -66,7 +66,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
             variant="contained"
             size="small"
             color="inherit"
-            className="bg-grey-200 hover:bg-amber-400 mr-0.5"
+            className="bg-grey-200 hover:bg-sky-400 mr-0.5"
             sx={{ borderRadius: '50%' }}
             onClick={() => {
               setShowUndoModal(true);
@@ -83,7 +83,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
           }}
           todo={todo}
           actionMethod={actions.undoTodo}
-          buttonColor={'bg-amber-500 text-white hover:bg-amber-600'}
+          buttonColor={'bg-sky-500 text-white hover:bg-sky-600'}
           buttonText="Undo"
           modalText="Are you sure you want to undo this task?"
           snackbarMessage="is set to undone."

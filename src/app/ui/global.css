@@ -19,12 +19,70 @@ input[type='number']::-webkit-outer-spin-button {
 
 @layer components {
   .primary-background {
-    @apply bg-emerald-400 text-white text-xl 
+    @apply bg-emerald-400 text-white text-xl;
   }
   .container-light-gray {
     @apply bg-stone-200 border rounded-md text-gray-800;
   }
   .button-primary {
-    @apply bg-orange-300
+    @apply bg-orange-300;
   }
+}
+
+@layer components {
+  .react-calendar .urgent {
+    @apply bg-red-300;
+  }
+  .react-calendar .urgent:hover {
+    @apply bg-red-400 !important;
+  }
+  .react-calendar .urgentSelected {
+    @apply bg-red-600;
+  }
+  .react-calendar .urgentSelected:hover {
+    @apply bg-red-700 !important;
+  }
+
+  .react-calendar .completed {
+    @apply bg-lime-300;
+  }
+  .react-calendar .completed:hover {
+    @apply bg-lime-400 !important;
+  }
+  .react-calendar .completedSelected {
+    @apply bg-lime-600;
+  }
+  .react-calendar .completedSelected:hover {
+    @apply bg-lime-700 !important;
+  }
+
+  .react-calendar .today {
+    @apply bg-yellow-200;
+  }
+  .react-calendar .today:hover {
+    @apply bg-yellow-300 !important;
+  }
+  .react-calendar .todaySelected {
+    @apply bg-yellow-500;
+  }
+  .react-calendar .todaySelected:hover {
+    @apply bg-yellow-600 !important;
+  }
+
+  .react-calendar .future {
+    @apply bg-sky-200;
+  }
+  .react-calendar .future:hover {
+    @apply bg-sky-300 !important;
+  }
+  .react-calendar .futureSelected {
+    @apply bg-sky-500;
+  }
+  .react-calendar .futureSelected:hover {
+    @apply bg-sky-600 !important;
+  }
+}
+
+.clickable-date {
+  cursor: pointer;
 }
