@@ -9,14 +9,18 @@ interface CalendarModalProps {
   handleModalClose: () => void;
   handleDateChange: (date: Date) => void;
   todos: Todo[];
-  selectedDate: Date;
+  selectedDate: Date | null;
+  isNew: boolean
+  modalHeader: string
 }
 
 export default function CalendarModal({
   handleModalClose,
   handleDateChange,
   todos,
-  selectedDate
+  selectedDate,
+  isNew,
+  modalHeader,
 }: CalendarModalProps) {
   const modalContentRef = useRef<HTMLDivElement>(null);
 
@@ -55,9 +59,9 @@ export default function CalendarModal({
           onClick={handleModalClose}
         />
         <h3 className="font-bold text-stone-700 col-start-2 col-end-4 text-center">
-          Select a Date
+          {modalHeader}
         </h3>
-        <CalendarWithTodos todos={todos} handleDateChange={handleDateChange} selectedDate={selectedDate}/>
+        <CalendarWithTodos todos={todos} handleDateChange={handleDateChange} selectedDate={selectedDate} isNew={isNew}/>
         <div className="flex justify-around">
           <Button
             className="rounded-xl bg-gray-200 px-4 py-2 text-gray-800 z-0 hover:bg-gray-300"

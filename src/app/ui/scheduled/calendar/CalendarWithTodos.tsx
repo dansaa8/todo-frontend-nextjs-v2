@@ -8,13 +8,15 @@ import { isSameDay, isToday } from '@/utils';
 interface CalendarWithTodosProps {
   todos: Todo[];
   handleDateChange: (date: Date) => void;
-  selectedDate: Date;
+  selectedDate: Date | null;
+  isNew: boolean; // prop to determine if we are creating a new todo
 }
 
 const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
   todos,
   handleDateChange,
   selectedDate,
+  isNew,
 }) => {
   const [dateList, setDateList] = useState<Date[]>([]);
   const [urgentDates, setUrgentDates] = useState<Date[]>([]);
@@ -44,6 +46,10 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
     view: string;
   }): boolean => {
     if (view === 'month') {
+      // Disable dates in the past if isNew is true
+      if (isNew) {
+        return date < new Date() && !isToday(date);
+      }
       return !dateList.some((d) => isSameDay(d, date));
     }
     return false;
@@ -63,7 +69,12 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
       const isUrgent = urgentDates.some((d) => isSameDay(d, date));
 
       // Check if the date is selected
-      const isSelected = isSameDay(date, selectedDate);
+      let isSelected;
+      if (!selectedDate) {
+        isSelected = false;
+      } else {
+        isSelected = isSameDay(date, selectedDate);
+      }
 
       // Check if the date has completed todos and is in the past
       const isCompletedAndInThePast = completedDates.some(
@@ -72,13 +83,16 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
 
       if (isUrgent) {
         className += isSelected ? 'urgentSelected' : 'urgent';
-      } else if (isCompletedAndInThePast) {
+      } else if (isCompletedAndInThePast && !isNew) {
         className += isSelected ? 'completedSelected' : 'completed';
       } else if (isSelected && isToday(date)) {
         className += 'todaySelected';
       } else if (isToday(date)) {
         className += 'today';
-      } else if (date > new Date() && dateList.some((d) => isSameDay(d, date))) {
+      } else if (
+        date > new Date() &&
+        dateList.some((d) => isSameDay(d, date))
+      ) {
         className += isSelected ? 'futureSelected' : 'future';
       }
 
@@ -94,7 +108,8 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
         tileDisabled={tileDisabled}
         tileClassName={tileClassName}
         onClickDay={(date) => {
-          if (dateList.some((d) => isSameDay(d, date))) {
+          // Allow date selection only if the date is not disabled
+          if (!tileDisabled({ date, view: 'month' })) {
             handleDateChange(date);
           }
         }}
