@@ -5,6 +5,11 @@ export function isSameDay(date1: Date, date2: Date): boolean {
     date1.getDate() === date2.getDate()
   );
 }
+export function isToday (date: Date): boolean {
+  const today = new Date();
+  return isSameDay(date, today);
+};
+
 
 export function getRelativeDateLabel(date: Date) {
   const today = new Date();

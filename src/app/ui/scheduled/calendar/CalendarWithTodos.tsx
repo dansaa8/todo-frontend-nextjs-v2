@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Todo } from '@/app/lib/definitions';
-import { select } from '@nextui-org/react';
+import { isSameDay, isToday } from '@/utils';
 
 interface CalendarWithTodosProps {
   todos: Todo[];
@@ -44,7 +44,7 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
     view: string;
   }): boolean => {
     if (view === 'month') {
-      return !dateList.some((d) => d.toDateString() === date.toDateString());
+      return !dateList.some((d) => isSameDay(d, date));
     }
     return false;
   };
@@ -60,16 +60,14 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
       let className = '';
 
       // Check if the date has urgent todos
-      const isUrgent = urgentDates.some(
-        (d) => d.toDateString() === date.toDateString()
-      );
+      const isUrgent = urgentDates.some((d) => isSameDay(d, date));
 
       // Check if the date is selected
-      const isSelected = date.toDateString() === selectedDate.toDateString();
+      const isSelected = isSameDay(date, selectedDate);
 
       // Check if the date has completed todos and is in the past
       const isCompletedAndInThePast = completedDates.some(
-        (d) => d.toDateString() === date.toDateString() && !isToday(date)
+        (d) => isSameDay(d, date) && !isToday(date)
       );
 
       if (isUrgent) {
@@ -80,22 +78,13 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
         className += 'todaySelected';
       } else if (isToday(date)) {
         className += 'today';
-      } else if (date > new Date()) {
+      } else if (date > new Date() && dateList.some((d) => isSameDay(d, date))) {
         className += isSelected ? 'futureSelected' : 'future';
       }
 
       return className.trim();
     }
     return '';
-  };
-
-  const isToday = (date: Date): boolean => {
-    const today = new Date();
-    return (
-      date.getDate() === today.getDate() &&
-      date.getMonth() === today.getMonth() &&
-      date.getFullYear() === today.getFullYear()
-    );
   };
 
   return (
@@ -105,7 +94,7 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
         tileDisabled={tileDisabled}
         tileClassName={tileClassName}
         onClickDay={(date) => {
-          if (dateList.some((d) => d.toDateString() === date.toDateString())) {
+          if (dateList.some((d) => isSameDay(d, date))) {
             handleDateChange(date);
           }
         }}
