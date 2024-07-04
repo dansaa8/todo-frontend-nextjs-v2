@@ -34,42 +34,76 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="zh-cn">
-      <form action={action}>
-        <h3 className="font-bold m-1 text-xl border border-b-stone-300 text-center">
-          Create a Todo
-        </h3>
-        <div className="flex flex-col gap-5 mt-4">
-          <div>
-            <TextField name="name" id="name" label="Name" variant="outlined" />
+      <div className="flex justify-center bg-sky-100 flex-grow">
+        <form
+          action={action}
+          className="p-2 border rounded bg-sky-200 border-sky-400 max-w-96 m-4 flex flex-col justify-around"
+        >
+          <div className="flex flex-col gap-3 ">
+            <h3 className="font-bold text-xl text-gray-500">Information</h3>
+            <div>
+              <TextField
+                name="name"
+                id="name"
+                label="Name"
+                variant="outlined"
+                className="bg-white"
+                fullWidth
+                size="small"
+              />
+            </div>
+            <div>
+              <TextField
+                name="description"
+                id="description"
+                label="Description"
+                multiline
+                rows={4}
+                className="bg-white"
+                fullWidth
+              />
+            </div>
           </div>
-          <div>
-            <TextField
-              name="description"
-              id="description"
-              label="Description"
-              multiline
-              rows={4}
-            />
+          <div className="w-full border-t border-sky-400"> </div>
+          <div className="flex items-center justify-between flex-col">
+            <h3 className="font-bold text-xl w-full text-gray-500">
+              Date & Time
+            </h3>
+            <div className="flex items-center">
+              <div className="flex flex-col gap-2 items-center justify-center">
+                <DateField
+                  label="Date"
+                  name="date"
+                  id="date"
+                  value={selectedDate}
+                  onChange={(newValue) => setSelectedDate(newValue)}
+                  disablePast
+                  className="bg-white"
+                  size="small"
+                  // fullWidth
+                />
+                <TimeField
+                  label="Time"
+                  name="time"
+                  id="time"
+                  className="bg-white"
+                  // fullWidth
+                  size="small"
+                />
+              </div>
+              <div className="flex items-center justify-center">
+                <IconButton
+                  className="text-black-800"
+                  onClick={() => {
+                    setShowCalendarModal(true);
+                  }}
+                >
+                  <CalendarIcon className="w-24 h-24" />
+                </IconButton>
+              </div>
+            </div>
           </div>
-          <div className="flex justify-start items-center">
-            <DateField
-              label="Date"
-              name="date"
-              id="date"
-              value={selectedDate}
-              onChange={(newValue) => setSelectedDate(newValue)}
-              disablePast
-            />
-            <IconButton
-              className="text-black-800"
-              onClick={() => {
-                setShowCalendarModal(true);
-              }}
-            >
-              <CalendarIcon />
-            </IconButton>
-          </div>
-          <TimeField label="Time" name="time" id="time" />
+          <div className="w-full border-t border-sky-400 my-2"> </div>
           <FormErrorMessage>{formState.message}</FormErrorMessage>
           <FormButton
             type="submit"
@@ -78,9 +112,9 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
           >
             Create
           </FormButton>
-          <button></button>
-        </div>
-      </form>
+        </form>
+      </div>
+
       {showCalendarModal && (
         <CalendarModal
           handleModalClose={() => {
