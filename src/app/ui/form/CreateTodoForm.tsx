@@ -3,6 +3,7 @@ import { useFormState } from 'react-dom';
 import { DateField, TimeField } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import TextField from '@mui/material/TextField';
 import { Todo } from '@/app/lib/definitions';
 import CalendarIcon from '@/app/ui/svg/calendar-icon';
 import { IconButton } from '@mui/material';
@@ -39,23 +40,15 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
         </h3>
         <div className="flex flex-col gap-5 mt-4">
           <div>
-            <label className="w-12" htmlFor="name">
-              Name
-            </label>
-            <input
-              name="name"
-              className="border rounded p-2 w-full"
-              id="name"
-            />
+            <TextField name="name" id="name" label="Name" variant="outlined" />
           </div>
           <div>
-            <label className="w-12" htmlFor="name">
-              Description
-            </label>
-            <textarea
+            <TextField
               name="description"
-              className="border rounded p-2 w-full"
               id="description"
+              label="Description"
+              multiline
+              rows={4}
             />
           </div>
           <div className="flex justify-start items-center">
