@@ -10,6 +10,12 @@ export function isToday (date: Date): boolean {
   return isSameDay(date, today);
 };
 
+export function setToMidnight (date : Date): Date  {
+  const newDate = new Date(date);
+  newDate.setHours(0, 0, 0, 0);
+  return newDate;
+};
+
 
 export function getRelativeDateLabel(date: Date) {
   const today = new Date();

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Todo } from '@/app/lib/definitions';
-import { isSameDay, isToday } from '@/utils';
+import { isSameDay, isToday, setToMidnight } from '@/utils';
 
 interface CalendarWithTodosProps {
   todos: Todo[];
@@ -18,23 +18,28 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
   selectedDate,
   isNew,
 }) => {
-  const [dateList, setDateList] = useState<Date[]>([]);
+  const [datesWithTodos, setDatesWithTodos] = useState<Date[]>([]);
   const [urgentDates, setUrgentDates] = useState<Date[]>([]);
   const [completedDates, setCompletedDates] = useState<Date[]>([]);
 
-  useEffect(() => {
-    const datesWithTodos = todos.map((todo) => new Date(todo.deadline));
-    setDateList(datesWithTodos);
-
-    const today = new Date();
-    const urgentDates = todos
-      .filter((todo) => !todo.completedAt && new Date(todo.deadline) < today)
-      .map((todo) => new Date(todo.deadline));
+  useEffect(() => {  
+    const today = setToMidnight(new Date());
+  
+    const datesWithTodos = todos.map((todo) => ({
+      deadline: setToMidnight(todo.deadline),
+      completedAt: todo.completedAt ? setToMidnight(todo.completedAt) : null,
+    }));
+    setDatesWithTodos(datesWithTodos.map((item) => item.deadline));
+  
+    // Filter urgent and completed dates from datesWithTodos
+    const urgentDates = datesWithTodos
+      .filter((item) => !item.completedAt && item.deadline < today)
+      .map((item) => item.deadline);
     setUrgentDates(urgentDates);
-
-    const completedDates = todos
-      .filter((todo) => todo.completedAt && new Date(todo.deadline) < today)
-      .map((todo) => new Date(todo.deadline));
+  
+    const completedDates = datesWithTodos
+      .filter((item) => item.completedAt && item.deadline < today)
+      .map((item) => item.deadline);
     setCompletedDates(completedDates);
   }, [todos]);
 
@@ -50,7 +55,7 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
       if (isNew) {
         return date < new Date() && !isToday(date);
       }
-      return !dateList.some((d) => isSameDay(d, date));
+      return !datesWithTodos.some((d) => isSameDay(d, date));
     }
     return false;
   };
@@ -91,7 +96,7 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
         className += 'today';
       } else if (
         date > new Date() &&
-        dateList.some((d) => isSameDay(d, date))
+        datesWithTodos.some((d) => isSameDay(d, date))
       ) {
         className += isSelected ? 'futureSelected' : 'future';
       }
