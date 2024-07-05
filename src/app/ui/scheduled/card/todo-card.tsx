@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { Button, IconButton } from '@mui/material';
+import { Button } from '@nextui-org/react';
+
 import { Todo } from '@/app/lib/definitions';
 import TimeBadge from '@/app/ui/scheduled/card/time-badge';
 import HamburgerMenu from '@/app/ui/scheduled/card/hamburger-menu';
@@ -8,6 +9,7 @@ import CheckMarkIcon from '@/app/ui/svg/checkmark-icon';
 import * as actions from '@/app/actions/index';
 import UndoIcon from '../../svg/undo-icon';
 import ActionModal from './ActionModal';
+import FormButton from '../../common/FormButton';
 
 interface TodoCardProps {
   todo: Todo;
@@ -44,37 +46,36 @@ export default function TodoCard({ todo }: TodoCardProps) {
         )}
       </section>
 
-      <section className="flex justify-around">
-        <HamburgerMenu todo={todo} />
-        <div className=" w-40 rounded border border-stone-300 bg-white">
+      <section className="flex justify-between px-5">
+        <div className="w-40 rounded border border-stone-300 bg-white flex-grow mr-5">
           <p className="p-1">{todo.description}</p>
         </div>
-        {!todo.completedAt ? (
-          <Button
-            variant="contained"
-            color="inherit"
-            className="flex justify-center bg-grey-200 hover:bg-lime-300 mr-0.5"
-            onClick={() => {
-              actions.completeTodo(todo.id);
-            }}
-          >
-            <CheckMarkIcon />
-            {/* Done */}
-          </Button>
-        ) : (
-          <Button
-            variant="contained"
-            size="small"
-            color="inherit"
-            className="bg-grey-200 hover:bg-sky-400 mr-0.5"
-            sx={{ borderRadius: '50%' }}
-            onClick={() => {
-              setShowUndoModal(true);
-            }}
-          >
-            <UndoIcon />
-          </Button>
-        )}
+        <div className='flex flex-col justify-center items-center'>
+          <HamburgerMenu todo={todo} />
+          {!todo.completedAt ? (
+            <FormButton
+              isIconOnly
+              // color="primary"
+              className="bg-lime-200"
+              pendingText=""
+              onClick={() => {
+                actions.completeTodo(todo.id);
+              }}
+            >
+              <CheckMarkIcon />
+            </FormButton>
+          ) : (
+            <Button
+            isIconOnly
+              className="bg-sky-200"
+              onClick={() => {
+                setShowUndoModal(true);
+              }}
+            >
+              <UndoIcon />
+            </Button>
+          )}
+        </div>
       </section>
       {showUndoModal && (
         <ActionModal

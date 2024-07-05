@@ -1,6 +1,13 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
 import { IconButton } from '@mui/material';
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+} from '@nextui-org/react';
 import { Todo } from '@/app/lib/definitions';
 import HamburgerIcon from '@/app/ui/svg/hamburger-icon';
 import DeleteIcon from '@/app/ui/svg/delete-icon';
@@ -51,43 +58,45 @@ export default function HamburgerMenu({ todo }: HamburgerMenuProps) {
   };
 
   return (
-    <div ref={divEl} className="relative col-start-4 justify-self-center">
-      <IconButton
-        className="col-start-4 justify-self-center"
-        onClick={toggleMenu}
-      >
-        <HamburgerIcon />
-      </IconButton>
-      {isOpen && !showDeleteModal && (
-        <ul className="absolute top-full left-1/2 transform -translate-x-1/2  bg-white border border-gray-400 rounded-xl flex justify-center items-center gap-3">
-          <li>
-            <IconButton>
-              <Link href={`/todo/${todo.id}/edit`}>
-                <EditIcon className="w-9 h-9" />
-              </Link>
-            </IconButton>
-          </li>
-          <span className="h-8 w-px bg-gray-200"></span>
-          <li>
-            <IconButton
-              onClick={() => {
-                setShowDeleteModal(true);
-              }}
-            >
-              <DeleteIcon className="w-7 h-7 text-red-600" />
-            </IconButton>
-          </li>
-        </ul>
-      )}
+    <div ref={divEl} className="">
+    <Dropdown>
+      <DropdownTrigger>
+        <Button 
+        isIconOnly 
+          variant="bordered" 
+        >
+          <HamburgerIcon />
+        </Button>
+      </DropdownTrigger>
+      <DropdownMenu variant="faded" aria-label="Dropdown menu with icons">
+        <DropdownItem
+          key="edit"
+          startContent={<EditIcon className={""} />}
+        >
+          Edit file
+        </DropdownItem>
+        <DropdownItem
+        onClick={() => {
+          setShowDeleteModal(true)
+        }}
+          key="delete"
+          className="text-danger"
+          color="danger"
+          startContent={<DeleteIcon className={""} />}
+        >
+          Delete file
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
       {showDeleteModal && (
         <ActionModal
           handleModalClose={handleModalClose}
           todo={todo}
           actionMethod={actions.deleteTodo}
           buttonColor="bg-red-600 hover:bg-red-700"
-          buttonText='Delete'
+          buttonText="Delete"
           modalText="Are you sure you want to remove this task?"
-          snackbarMessage='was deleted.'
+          snackbarMessage="was deleted."
         />
       )}
     </div>

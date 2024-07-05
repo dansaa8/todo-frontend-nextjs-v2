@@ -55,7 +55,7 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
       if (isNew) {
         return date < new Date() && !isToday(date);
       }
-      return !datesWithTodos.some((d) => isSameDay(d, date));
+      return !datesWithTodos.some((d) => isSameDay(d, date) || isToday(date));
     }
     return false;
   };

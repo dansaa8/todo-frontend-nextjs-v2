@@ -14,6 +14,7 @@ import FormErrorMessage from '@/app/ui/common/FormErrorMessage';
 import { useState } from 'react';
 import CalendarModal from '@/app/ui/scheduled/calendar/CalendarModal';
 import dayjs, { Dayjs } from 'dayjs';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
   const [formState, action] = useFormState(actions.createTodo, { message: '' });
@@ -37,9 +38,9 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
       <div className="flex justify-center bg-sky-100 flex-grow">
         <form
           action={action}
-          className="p-2 border rounded bg-sky-200 border-sky-400 max-w-96 m-4 flex flex-col justify-around"
+          className="p-2 border rounded bg-sky-200 border-sky-400 max-w-96 m-4 flex flex-col flex-start gap-4 "
         >
-          <div className="flex flex-col gap-3 ">
+          <div className="flex flex-col gap-3   ">
             <h3 className="font-bold text-xl text-gray-500">Information</h3>
             <div>
               <TextField
@@ -107,10 +108,11 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
           <FormErrorMessage>{formState.message}</FormErrorMessage>
           <FormButton
             type="submit"
-            className="rounded p-2 bg-orange-300"
-            pendingText="Creating a new Todo..."
+            className="rounded p-2 bg-orange-300 h-12"
+            pendingText="Adding new Todo..."
           >
-            Create
+            <AddIcon />
+            Add Todo
           </FormButton>
         </form>
       </div>
