@@ -21,7 +21,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
 
   return (
     <div
-      className={`w-full border border-stone-300 rounded-lg bg-stone-50 shadow-lg pb-2 ${todoColor}`}
+      className={`w-full border border-stone-300 rounded-lg shadow-lg pb-2 bg-white`}
     >
       <section className="flex justify-between p-1 mb-2 px-2 gap-2 border-b border-stone-200 bg-white">
         <h3 className="font-bold italic text-stone-700 text-sm flex justify-center items-center">
@@ -56,7 +56,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
             <FormButton
               isIconOnly
               // color="primary"
-              className="bg-lime-200"
+              className="hover:bg-lime-400"
               pendingText=""
               onClick={() => {
                 actions.completeTodo(todo.id);
@@ -67,7 +67,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
           ) : (
             <Button
             isIconOnly
-              className="bg-sky-200"
+              className="hover:bg-amber-400"
               onClick={() => {
                 setShowUndoModal(true);
               }}
@@ -84,7 +84,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
           }}
           todo={todo}
           actionMethod={actions.undoTodo}
-          buttonColor={'bg-sky-500 text-white hover:bg-sky-600'}
+          buttonColor={'bg-amber-500 text-white hover:bg-amber-600'}
           buttonText="Undo"
           modalText="Are you sure you want to undo this task?"
           snackbarMessage="is set to undone."

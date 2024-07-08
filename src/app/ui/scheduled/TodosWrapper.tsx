@@ -110,7 +110,7 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
         </IconButton>
       </section>
 
-      <section className="flex justify-center gap-2 mb-3">
+      <section className="flex justify-center gap-2">
         {tasks.todo.length > 0 && (
           <Button
             size="small"
@@ -176,14 +176,19 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
         )}
       </section>
 
-      <section className="flex flex-col gap-8 items-center p-2 mb-10 mt-6 mx-2 bg-stone-200 border rounded border-stone-400">
+      <section className="flex flex-col gap-8 items-center p-4 mb-10 mt-4 mx-2 bg-gray-200 border border-gray-300 rounded">
         {loading ? (
           <p className="text-gray-500">Loading tasks...</p>
         ) : activeFilter ? (
-          filteredTodos.map((todo: Todo) => {
-            return <TodoCard key={todo.id} todo={todo} />;
-          })
-        ) : (
+          filteredTodos.map((todo: Todo, index: number) => (
+            <>
+              <TodoCard key={todo.id} todo={todo} />
+              {index < filteredTodos.length - 1 && (
+                <div className="w-3/4 border-t border-gray-300 "></div>
+              )}
+            </>
+          ))
+        )  : (
           <p className="text-gray-500">No tasks for the day</p>
         )}
       </section>
