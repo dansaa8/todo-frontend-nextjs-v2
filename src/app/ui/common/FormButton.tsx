@@ -2,7 +2,13 @@ import React from 'react';
 import { Button } from '@nextui-org/react';
 import { useFormStatus } from 'react-dom';
 
-export default function FormButton({ children, pendingText, ...rest }) {
+interface FormButtonProps {
+  children: React.ReactNode;
+  pendingText: string;
+  [key: string]: any;
+}
+
+export default function FormButton({ children, pendingText, ...rest } : FormButtonProps) {
   const { pending } = useFormStatus();
   return (
     <Button

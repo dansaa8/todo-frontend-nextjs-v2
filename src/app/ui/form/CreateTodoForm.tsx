@@ -107,7 +107,6 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
           <div className="w-full border-t border-sky-400 my-2"> </div>
           <FormErrorMessage>{formState.message}</FormErrorMessage>
           <FormButton
-            type="submit"
             className="rounded p-2 bg-orange-300 h-12"
             pendingText="Adding new Todo..."
           >

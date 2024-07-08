@@ -69,17 +69,20 @@ export async function createTodo(
 }
 
 export async function deleteTodo(formData: FormData) {
-  console.log('\nFORMDATA OBJECT LOOKS LIKE THIS: ', formData, '\n');
-  const id = formData.get('id');
-  console.log('ID HEEEEEEEEEEEEERE: ', id);
+  const id = Number(formData.get('id')) || -1;
+
+  if (id === -1) {
+    console.log('ID is null or invalid. Skipping the delete operation.');
+    return;
+  }
 
   try {
-    await new Promise((resolve) => setTimeout(resolve, 5000)); // REMOVE IN PRODUCTION:  Delay for 5 seconds
-
     await todoApi.deleteById(id);
     revalidatePath('/todo/scheduled');
     redirect('http://localhost:3000');
-  } catch (error) {}
+  } catch (error) {
+    console.error('Error deleting todo:', error);
+  }
 }
 
 export async function completeTodo(id: number) {
@@ -90,7 +93,12 @@ export async function completeTodo(id: number) {
 }
 
 export async function undoTodo(formData: FormData) {
-  const id = formData.get('id');
+  const id = Number(formData.get('id')) || -1;
+  if (id === -1) {
+    console.log('ID is null or invalid. Skipping the delete operation.');
+    return;
+  }
+
   try {
     await todoApi.setCompletedAtToNullById(id);
     revalidatePath('/todo/scheduled');
