@@ -9,8 +9,6 @@ export async function createTodo(
   formData: FormData
 ) {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 5000)); // REMOVE IN PRODUCTION:  Delay for 5 seconds
-
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
 

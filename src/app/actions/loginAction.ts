@@ -22,9 +22,6 @@ export default async function loginAction(
       };
     }
 
-    // REMOVE IN PRODUCTION!!!!!!!!!
-    await new Promise((resolve) => setTimeout(resolve, 5000)); // Delay for 5 seconds
-
     const response = await fetch(`${process.env.TASKS_API}/login`, {
       method: 'POST',
       headers: {
