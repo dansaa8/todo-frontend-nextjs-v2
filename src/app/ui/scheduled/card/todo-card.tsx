@@ -55,8 +55,6 @@ export default function TodoCard({ todo }: TodoCardProps) {
           {!todo.completedAt ? (
             <FormButton
               isIconOnly
-              // color="primary"
-              className="hover:bg-lime-400"
               pendingText=""
               onClick={() => {
                 actions.completeTodo(todo.id);
@@ -67,7 +65,6 @@ export default function TodoCard({ todo }: TodoCardProps) {
           ) : (
             <Button
             isIconOnly
-              className="hover:bg-amber-400"
               onClick={() => {
                 setShowUndoModal(true);
               }}

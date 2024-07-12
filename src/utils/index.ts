@@ -5,10 +5,23 @@ export function isSameDay(date1: Date, date2: Date): boolean {
     date1.getDate() === date2.getDate()
   );
 }
+
 export function isToday (date: Date): boolean {
   const today = new Date();
   return isSameDay(date, today);
 };
+
+export function isInThePast(date: Date): boolean {
+  const now = new Date();
+  
+  // Ensure the comparison is done purely based on the date
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const comparisonDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+  return comparisonDate < today;
+}
+
+
 
 export function setToMidnight (date : Date): Date  {
   const newDate = new Date(date);

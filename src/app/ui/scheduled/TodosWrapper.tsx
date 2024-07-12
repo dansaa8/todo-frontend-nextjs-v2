@@ -83,7 +83,13 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
 
   const filteredTodos = activeFilter === 'todo' ? tasks.todo : tasks.done;
 
-  const disabledTextColor = 'text-gray-400 normal case';
+  const btnColorVariants = {
+    blue: 'bg-sky-200 hover:bg-sky-100',
+    red: 'bg-red-300 hover:bg-red-200',
+    green: 'bg-lime-200 hover:bg-lime-100',
+    gray:'bg-gray-100 hover:bg-gray-50'
+  }
+
 
   return (
     <>
@@ -116,8 +122,10 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
             size="small"
             className={
               activeFilter === 'todo'
-                ? 'bg-sky-200 hover:bg-sky-300'
-                : 'bg-gray-100 hover:bg-sky-300'
+                ? utils.isInThePast(selectedDate)
+                  ? btnColorVariants.red
+                  : btnColorVariants.blue
+                : btnColorVariants.gray
             }
             endIcon={
               <TasksTodoIcon
@@ -148,8 +156,8 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
             size="small"
             className={
               activeFilter === 'done'
-                ? 'bg-lime-200 hover:bg-lime-300'
-                : 'bg-gray-100 hover:bg-lime-300'
+                ? btnColorVariants.green
+                : btnColorVariants.gray
             }
             endIcon={
               <TasksDoneIcon
@@ -188,7 +196,7 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
               )}
             </>
           ))
-        )  : (
+        ) : (
           <p className="text-gray-500">No tasks for the day</p>
         )}
       </section>
