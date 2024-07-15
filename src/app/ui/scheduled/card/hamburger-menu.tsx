@@ -44,53 +44,47 @@ export default function HamburgerMenu({ todo }: HamburgerMenuProps) {
     };
   }, []);
 
-  const toggleMenu = () => {
-    if (!showDeleteModal) {
-      // Ensure menu toggles only if the DeleteModal is not shown
-      setIsOpen(!isOpen);
-      console.log('Dropdown menu is now', isOpen ? 'closed' : 'open');
-    }
-  };
+  // const toggleMenu = () => {
+  //   if (!showDeleteModal) {
+  //     // Ensure menu toggles only if the DeleteModal is not shown
+  //     setIsOpen(!isOpen);
+  //     console.log('Dropdown menu is now', isOpen ? 'closed' : 'open');
+  //   }
+  // };
 
-  const handleModalClose = () => {
-    setShowDeleteModal(false);
-    setIsOpen(false); // Ensure menu is closed when modal is closed
-  };
+  // const handleModalClose = () => {
+  //   setShowDeleteModal(false);
+  //   // setIsOpen(false); // Ensure menu is closed when modal is closed
+  // };
 
   return (
     <div ref={divEl} className="">
-    <Dropdown>
-      <DropdownTrigger>
-        <Button 
-        isIconOnly 
-          variant="bordered" 
-        >
-          <HamburgerIcon />
-        </Button>
-      </DropdownTrigger>
-      <DropdownMenu variant="faded" aria-label="Dropdown menu with icons">
-        <DropdownItem
-          key="edit"
-          startContent={<EditIcon className={""} />}
-        >
-          Edit file
-        </DropdownItem>
-        <DropdownItem
-        onClick={() => {
-          setShowDeleteModal(true)
-        }}
-          key="delete"
-          className="text-danger"
-          color="danger"
-          startContent={<DeleteIcon className={""} />}
-        >
-          Delete file
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+      <Dropdown>
+        <DropdownTrigger>
+          <Button isIconOnly variant="bordered">
+            <HamburgerIcon />
+          </Button>
+        </DropdownTrigger>
+        <DropdownMenu variant="faded" aria-label="Dropdown menu with icons">
+          {/* <DropdownItem key="edit" startContent={<EditIcon className={''} />}>
+            Edit Todo
+          </DropdownItem> */}
+          <DropdownItem
+            onPress={() => {
+              setShowDeleteModal(true);
+            }}
+            key="delete"
+            className="text-danger"
+            color="danger"
+            startContent={<DeleteIcon className={''} />}
+          >
+            Delete Todo
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
       {showDeleteModal && (
         <ActionModal
-          handleModalClose={handleModalClose}
+          handleModalClose={() => setShowDeleteModal(false)}
           todo={todo}
           actionMethod={actions.deleteTodo}
           buttonColor="bg-red-600 hover:bg-red-700"

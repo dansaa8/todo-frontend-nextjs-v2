@@ -8,7 +8,7 @@ import HamburgerMenu from '@/app/ui/scheduled/card/hamburger-menu';
 import CheckMarkIcon from '@/app/ui/svg/checkmark-icon';
 import * as actions from '@/app/actions/index';
 import UndoIcon from '../../svg/undo-icon';
-import ActionModal from './ActionModal';
+import ActionModal from '@/app/ui/scheduled/card/ActionModal';
 import FormButton from '../../common/FormButton';
 
 interface TodoCardProps {
@@ -50,7 +50,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
         <div className="w-40 rounded border border-stone-300 bg-white flex-grow mr-5">
           <p className="p-1">{todo.description}</p>
         </div>
-        <div className='flex flex-col justify-center items-center'>
+        <div className="flex flex-col justify-center items-center">
           <HamburgerMenu todo={todo} />
           {!todo.completedAt ? (
             <FormButton
@@ -64,7 +64,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
             </FormButton>
           ) : (
             <Button
-            isIconOnly
+              isIconOnly
               onClick={() => {
                 setShowUndoModal(true);
               }}
