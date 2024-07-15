@@ -2,13 +2,13 @@
 import { useState } from 'react';
 import { Button } from '@nextui-org/react';
 
-import { Todo } from '@/app/lib/definitions';
-import TimeBadge from '@/app/ui/scheduled/card/time-badge';
-import HamburgerMenu from '@/app/ui/scheduled/card/hamburger-menu';
-import CheckMarkIcon from '@/app/ui/svg/checkmark-icon';
-import * as actions from '@/app/actions/index';
+import { Todo } from '@/lib/definitions';
+import TimeBadge from '@/components/scheduled/card/time-badge';
+import HamburgerMenu from '@/components/scheduled/card/hamburger-menu';
+import CheckMarkIcon from '@/components/svg/checkmark-icon';
+import * as actions from '@/actions/index';
 import UndoIcon from '../../svg/undo-icon';
-import ActionModal from '@/app/ui/scheduled/card/ActionModal';
+import ActionModal from '@/components/scheduled/card/ActionModal';
 import FormButton from '../../common/FormButton';
 
 interface TodoCardProps {

@@ -1,6 +1,6 @@
 // app/lib/api.ts
-import { getToken } from '@/app/lib/cookies';
-import { NewTodo } from '@/app/lib/definitions';
+import { getToken } from '@/lib/cookies';
+import { NewTodo } from '@/lib/definitions';
 
 const headers = (): HeadersInit => {
   const token = getToken();

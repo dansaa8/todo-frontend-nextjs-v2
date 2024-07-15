@@ -1,11 +1,11 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Todo } from '@/app/lib/definitions';
-import TodoCard from '@/app/ui/scheduled/card/todo-card';
+import { Todo } from '@/lib/definitions';
+import TodoCard from '@/components/scheduled/card/todo-card';
 import { IconButton } from '@mui/material';
-import CalendarIcon from '@/app/ui/svg/calendar-icon';
-import TodosFilter from '@/app/ui/scheduled/TodosFilter';
-import CalendarModal from '@/app/ui/scheduled/calendar/CalendarModal';
+import CalendarIcon from '@/components/svg/calendar-icon';
+import TodosFilter from '@/components/scheduled/TodosFilter';
+import CalendarModal from '@/components/scheduled/calendar/CalendarModal';
 import React from 'react';
 import * as utils from '@/utils/index';
 import setDayColor from '@/utils/setDayColor';

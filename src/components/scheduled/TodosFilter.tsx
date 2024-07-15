@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button } from '@mui/material';
-import TasksDoneIcon from '@/app/ui/svg/tasks-done-icon';
-import TasksTodoIcon from '@/app/ui/svg/tasks-todo-icon';
-import { Todo } from '@/app/lib/definitions';
+import TasksDoneIcon from '@/components/svg/tasks-done-icon';
+import TasksTodoIcon from '@/components/svg/tasks-todo-icon';
+import { Todo } from '@/lib/definitions';
 import * as utils from '@/utils/index';
 
 interface TodosFilterProps {

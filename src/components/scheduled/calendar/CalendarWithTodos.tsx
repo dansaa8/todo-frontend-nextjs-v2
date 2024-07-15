@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { Todo } from '@/app/lib/definitions';
+import { Todo } from '@/lib/definitions';
 import { isSameDay, isToday, setToMidnight } from '@/utils';
 
 interface CalendarWithTodosProps {

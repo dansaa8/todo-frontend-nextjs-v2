@@ -1,4 +1,4 @@
-import { Todo } from '@/app/lib/definitions';
+import { Todo } from '@/lib/definitions';
 export default function setDayColor(relativeDate: String, todos: Todo[]) {
   let dayColor;
   if (relativeDate.includes('Today'))

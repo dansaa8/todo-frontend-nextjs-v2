@@ -1,5 +1,5 @@
 import React from 'react';
-import ClockIcon from '@/app/ui/svg/clock-icon';
+import ClockIcon from '@/components/svg/clock-icon';
 
 type TimeBadgeProps = {
   color: 'yellow' | 'green';
@@ -45,11 +45,13 @@ export default function TimeBadge({
 
   return (
     <div
-      className={`${borderColor} px-3 gap-1 text-xs font-medium rounded-full border flex flex-col items-center ${includeDate ? 'w-48' : ''}`}
+      className={`${borderColor} px-3 gap-1 text-xs font-medium rounded-full border flex flex-col items-center ${
+        includeDate ? 'w-48' : ''
+      }`}
     >
       <div className="flex flex-wrap items-center justify-center">
         <p className="mr-0.5">{children}</p>
-        <div className='flex flex-wrap items-center justify-center gap-0.5'>
+        <div className="flex flex-wrap items-center justify-center gap-0.5">
           <ClockIcon className={`w-5 h-5 ${textColor}`} />
           <span className={textColor}>{time}</span>
         </div>

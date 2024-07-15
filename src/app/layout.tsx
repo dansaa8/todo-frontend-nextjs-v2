@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
-import { inter } from '@/app/ui/fonts';
-import '@/app/ui/global.css';
-import { SnackbarProvider } from '@/app/providers/snackbar-context';
+import { inter } from '@/app/fonts';
+import '@/app/global.css';
+import { SnackbarProvider } from '@/providers/snackbar-context';
 
 export const metadata: Metadata = {
   title: 'Create Next App',

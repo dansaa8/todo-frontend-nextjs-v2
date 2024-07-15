@@ -1,4 +1,3 @@
-// app/lib/cookies.ts
 import { cookies } from 'next/headers';
 
 export const getToken = (): string | undefined => {

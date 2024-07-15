@@ -1,6 +1,5 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
-import { IconButton } from '@mui/material';
+import { useState, useRef } from 'react';
 import {
   Dropdown,
   DropdownTrigger,
@@ -8,12 +7,12 @@ import {
   DropdownItem,
   Button,
 } from '@nextui-org/react';
-import { Todo } from '@/app/lib/definitions';
-import HamburgerIcon from '@/app/ui/svg/hamburger-icon';
-import DeleteIcon from '@/app/ui/svg/delete-icon';
-import EditIcon from '@/app/ui/svg/edit-icon';
-import ActionModal from '@/app/ui/scheduled/card/ActionModal';
-import * as actions from '@/app/actions/index';
+import { Todo } from '@/lib/definitions';
+import HamburgerIcon from '@/components/svg/hamburger-icon';
+import DeleteIcon from '@/components/svg/delete-icon';
+import EditIcon from '@/components/svg/edit-icon';
+import ActionModal from '@/components/scheduled/card/ActionModal';
+import * as actions from '@/actions/index';
 import Link from 'next/link';
 
 interface HamburgerMenuProps {
@@ -32,7 +31,11 @@ export default function HamburgerMenu({ todo }: HamburgerMenuProps) {
             <HamburgerIcon />
           </Button>
         </DropdownTrigger>
-        <DropdownMenu variant="faded" aria-label="Dropdown menu with icons" disabledKeys={["edit"]}>
+        <DropdownMenu
+          variant="faded"
+          aria-label="Dropdown menu with icons"
+          disabledKeys={['edit']}
+        >
           <DropdownItem key="edit" startContent={<EditIcon className={''} />}>
             Edit Todo
           </DropdownItem>

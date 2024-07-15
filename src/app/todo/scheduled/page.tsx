@@ -1,5 +1,5 @@
-import { getAll } from '@/app/lib/tasks-api';
-import TodosWrapper from '@/app/ui/scheduled/TodosWrapper';
+import { getAll } from '@/lib/tasks-api';
+import TodosWrapper from '@/components/scheduled/TodosWrapper';
 
 export default async function Page() {
   const todos = await getAll();

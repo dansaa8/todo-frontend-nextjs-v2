@@ -1,8 +1,8 @@
 'use client';
 import { useFormState } from 'react-dom';
-import loginAction from '@/app/actions/loginAction';
-import FormButton from '@/app/ui/common/FormButton';
-import FormErrorMessage from '@/app/ui/common/FormErrorMessage';
+import loginAction from '@/actions/loginAction';
+import FormButton from '@/components/common/FormButton';
+import FormErrorMessage from '@/components/common/FormErrorMessage';
 export default function LoginForm() {
   const [formState, action] = useFormState(loginAction, { message: '' });
   return (
