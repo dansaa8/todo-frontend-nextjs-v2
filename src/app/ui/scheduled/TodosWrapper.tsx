@@ -6,6 +6,7 @@ import { Button, IconButton } from '@mui/material';
 import CalendarIcon from '@/app/ui/svg/calendar-icon';
 import TasksDoneIcon from '@/app/ui/svg/tasks-done-icon';
 import TasksTodoIcon from '@/app/ui/svg/tasks-todo-icon';
+import TodosFilter from '@/app/ui/scheduled/TodosFilter';
 import CalendarModal from '@/app/ui/scheduled/calendar/CalendarModal';
 import React from 'react';
 import * as utils from '@/utils/index';
@@ -109,73 +110,12 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
         </IconButton>
       </section>
 
-      <section className="flex justify-center gap-2">
-        {tasks.todo.length > 0 && (
-          <Button
-            size="small"
-            className={
-              activeFilter === 'todo'
-                ? utils.isInThePast(selectedDate)
-                  ? 'urgent'
-                  : 'future'
-                : 'unselected'
-            }
-            endIcon={
-              <TasksTodoIcon
-                className={
-                  tasks.todo.length === 0
-                    ? `text-gray-300 w-4 h-4`
-                    : 'text-gray-800 w-4 h-4'
-                }
-              />
-            }
-            onClick={() => setActiveFilter('todo')}
-            disabled={tasks.done.length === 0}
-          >
-            <p
-              className={
-                tasks.todo.length === 0
-                  ? 'text-gray-300 normal-case'
-                  : 'text-gray-800 normal-case'
-              }
-            >
-              Todo
-            </p>
-          </Button>
-        )}
-
-        {tasks.done.length > 0 && (
-          <Button
-            size="small"
-            className={
-              activeFilter === 'done'
-                ? 'completed'
-                : 'unselected'
-            }
-            endIcon={
-              <TasksDoneIcon
-                className={
-                  tasks.done.length === 0
-                    ? `text-gray-300 w-4 h-4`
-                    : 'text-gray-800 w-4 h-4'
-                }
-              />
-            }
-            onClick={() => setActiveFilter('done')}
-            disabled={tasks.todo.length === 0}
-          >
-            <p
-              className={
-                tasks.done.length === 0
-                  ? 'text-gray-300 normal-case'
-                  : 'text-gray-800 normal-case'
-              }
-            >
-              Done
-            </p>
-          </Button>
-        )}
-      </section>
+      <TodosFilter
+        activeFilter={activeFilter}
+        setActiveFilter={setActiveFilter}
+        tasks={tasks}
+        isDateInPast={utils.isInThePast(selectedDate)}
+      />
 
       <section className="flex flex-col gap-8 items-center p-4 mb-10 mt-4 mx-2 bg-gray-200 border border-gray-300 rounded">
         {loading ? (
@@ -185,7 +125,10 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
             <React.Fragment key={todo.id}>
               <TodoCard key={todo.id} todo={todo} />
               {index < filteredTodos.length - 1 && (
-                <div key={`${todo.id}-separator`} className="w-3/4 border-t border-gray-300 "></div>
+                <div
+                  key={`${todo.id}-separator`}
+                  className="w-3/4 border-t border-gray-300 "
+                ></div>
               )}
             </React.Fragment>
           ))
