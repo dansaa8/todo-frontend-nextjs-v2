@@ -2,14 +2,13 @@
 import { useState, useEffect } from 'react';
 import { Todo } from '@/app/lib/definitions';
 import TodoCard from '@/app/ui/scheduled/card/todo-card';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import CalendarIcon from '@/app/ui/svg/calendar-icon';
-import TasksDoneIcon from '@/app/ui/svg/tasks-done-icon';
-import TasksTodoIcon from '@/app/ui/svg/tasks-todo-icon';
 import TodosFilter from '@/app/ui/scheduled/TodosFilter';
 import CalendarModal from '@/app/ui/scheduled/calendar/CalendarModal';
 import React from 'react';
 import * as utils from '@/utils/index';
+import setDayColor from '@/utils/setDayColor';
 
 type ScheduledContainerProps = {
   todos: Todo[];
@@ -68,27 +67,14 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
 
   const formattedDate = utils.formatDateWithSuffix(selectedDate);
   const relativeDateLabel = utils.getRelativeDateLabel(selectedDate);
-  let containerColor;
-
-  if (relativeDateLabel.includes('Today'))
-    containerColor = 'bg-yellow-50 border-yellow-200';
-  else if (
-    relativeDateLabel.includes('days ago') ||
-    relativeDateLabel.includes('Yesterday')
-  ) {
-    if (tasks.todo.length > 0) {
-      containerColor = 'bg-red-100 border border-red-200';
-    } else {
-      containerColor = 'bg-green-200 border border-green-300';
-    }
-  } else containerColor = 'bg-blue-50 border border-blue-100';
+  let dayColor = setDayColor(relativeDateLabel, tasks.todo);
 
   const filteredTodos = activeFilter === 'todo' ? tasks.todo : tasks.done;
 
   return (
     <>
       <section
-        className={`grid grid-cols-3 items-center border mb-5 ${containerColor} rounded-t pb-2`}
+        className={`grid grid-cols-3 items-center border mb-5 ${dayColor} rounded-t pb-2`}
       >
         <h2 className="mt-3 col-start-1 justify-self-center font-bold text-lg">
           {relativeDateLabel}
