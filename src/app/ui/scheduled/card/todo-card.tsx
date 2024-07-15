@@ -81,7 +81,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
           }}
           todo={todo}
           actionMethod={actions.undoTodo}
-          buttonColor={'bg-amber-500 text-white hover:bg-amber-600'}
+          buttonColor={'bg-amber-500 hover:bg-amber-600 text-white'}
           buttonText="Undo"
           modalText="Are you sure you want to undo this task?"
           snackbarMessage="is set to undone."

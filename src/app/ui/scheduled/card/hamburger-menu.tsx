@@ -21,41 +21,8 @@ interface HamburgerMenuProps {
 }
 
 export default function HamburgerMenu({ todo }: HamburgerMenuProps) {
-  const [isOpen, setIsOpen] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const divEl = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handler = (event: MouseEvent) => {
-      if (!divEl.current) {
-        return;
-      }
-
-      if (!divEl.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('click', handler, true);
-    // cleanup function
-    // kallas automatiskt på när våran dropdown component
-    // håller på att tas bort från skärmen.
-    return () => {
-      document.removeEventListener('click', handler);
-    };
-  }, []);
-
-  // const toggleMenu = () => {
-  //   if (!showDeleteModal) {
-  //     // Ensure menu toggles only if the DeleteModal is not shown
-  //     setIsOpen(!isOpen);
-  //     console.log('Dropdown menu is now', isOpen ? 'closed' : 'open');
-  //   }
-  // };
-
-  // const handleModalClose = () => {
-  //   setShowDeleteModal(false);
-  //   // setIsOpen(false); // Ensure menu is closed when modal is closed
-  // };
 
   return (
     <div ref={divEl} className="">
@@ -65,10 +32,10 @@ export default function HamburgerMenu({ todo }: HamburgerMenuProps) {
             <HamburgerIcon />
           </Button>
         </DropdownTrigger>
-        <DropdownMenu variant="faded" aria-label="Dropdown menu with icons">
-          {/* <DropdownItem key="edit" startContent={<EditIcon className={''} />}>
+        <DropdownMenu variant="faded" aria-label="Dropdown menu with icons" disabledKeys={["edit"]}>
+          <DropdownItem key="edit" startContent={<EditIcon className={''} />}>
             Edit Todo
-          </DropdownItem> */}
+          </DropdownItem>
           <DropdownItem
             onPress={() => {
               setShowDeleteModal(true);
@@ -87,7 +54,7 @@ export default function HamburgerMenu({ todo }: HamburgerMenuProps) {
           handleModalClose={() => setShowDeleteModal(false)}
           todo={todo}
           actionMethod={actions.deleteTodo}
-          buttonColor="bg-red-600 hover:bg-red-700"
+          buttonColor="bg-red-600 hover:bg-red-700 text-white"
           buttonText="Delete"
           modalText="Are you sure you want to remove this task?"
           snackbarMessage="was deleted."
