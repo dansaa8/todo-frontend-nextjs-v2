@@ -113,7 +113,7 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
               {index < filteredTodos.length - 1 && (
                 <div
                   key={`${todo.id}-separator`}
-                  className="w-3/4 border-t border-gray-300 "
+                  className="w-full border-t border-gray-300"
                 ></div>
               )}
             </React.Fragment>

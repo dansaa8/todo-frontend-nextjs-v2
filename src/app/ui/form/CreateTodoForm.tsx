@@ -35,10 +35,10 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="zh-cn">
-      <div className="flex justify-center bg-sky-100 flex-grow">
+      <div className="flex justify-center flex-grow">
         <form
           action={action}
-          className="p-2 border rounded bg-sky-200 border-sky-400 max-w-96 m-4 flex flex-col flex-start gap-4 "
+          className="p-2 bg-gray-200 border border-gray-300 rounded max-w-96 m-4 flex flex-col flex-start gap-4 "
         >
           <div className="flex flex-col gap-3   ">
             <h3 className="font-bold text-xl text-gray-500">Information</h3>
@@ -65,7 +65,7 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
               />
             </div>
           </div>
-          <div className="w-full border-t border-sky-400"> </div>
+          <div className="w-full border-t border-gray-400"> </div>
           <div className="flex items-center justify-between flex-col">
             <h3 className="font-bold text-xl w-full text-gray-500">
               Date & Time
@@ -104,7 +104,7 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
               </div>
             </div>
           </div>
-          <div className="w-full border-t border-sky-400 my-2"> </div>
+          <div className="w-full border-t border-gray-400 my-2"> </div>
           <FormErrorMessage>{formState.message}</FormErrorMessage>
           <FormButton
             className="rounded p-2 bg-orange-300 h-12"
