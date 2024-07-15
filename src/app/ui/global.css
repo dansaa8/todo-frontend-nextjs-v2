@@ -30,58 +30,39 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 @layer components {
-  .react-calendar .urgent {
-    @apply bg-red-300;
+  .urgent {
+    @apply bg-red-300 hover:bg-red-400 !important;
   }
-  .react-calendar .urgent:hover {
-    @apply bg-red-400 !important;
-  }
-  .react-calendar .urgentSelected {
-    @apply bg-red-600;
-  }
-  .react-calendar .urgentSelected:hover {
-    @apply bg-red-700 !important;
+  .urgentSelected {
+    @apply bg-red-600 hover:bg-red-700 !important;
   }
 
-  .react-calendar .completed {
-    @apply bg-lime-300;
+  .completed {
+    @apply bg-lime-300 hover:bg-lime-400 !important;
   }
-  .react-calendar .completed:hover {
-    @apply bg-lime-400 !important;
-  }
-  .react-calendar .completedSelected {
-    @apply bg-lime-600;
-  }
-  .react-calendar .completedSelected:hover {
-    @apply bg-lime-700 !important;
+  .completedSelected {
+    @apply bg-lime-600 hover:bg-lime-700 !important;
   }
 
-  .react-calendar .today {
-    @apply bg-yellow-200;
+  .today {
+    @apply bg-yellow-200 hover:bg-yellow-300 !important;
   }
-  .react-calendar .today:hover {
-    @apply bg-yellow-300 !important;
-  }
-  .react-calendar .todaySelected {
-    @apply bg-yellow-500;
-  }
-  .react-calendar .todaySelected:hover {
-    @apply bg-yellow-600 !important;
+  .todaySelected {
+    @apply bg-yellow-500 hover:bg-yellow-600 !important;
   }
 
-  .react-calendar .future {
-    @apply bg-sky-200;
+  .future {
+    @apply bg-sky-200 hover:bg-sky-300 !important;
   }
-  .react-calendar .future:hover {
-    @apply bg-sky-300 !important;
+  .futureSelected {
+    @apply bg-sky-500 hover:bg-sky-600 !important;
   }
-  .react-calendar .futureSelected {
-    @apply bg-sky-500;
-  }
-  .react-calendar .futureSelected:hover {
-    @apply bg-sky-600 !important;
+
+  .unselected {
+    @apply bg-gray-100 hover:bg-gray-200 !important;
   }
 }
+
 
 .clickable-date {
   cursor: pointer;

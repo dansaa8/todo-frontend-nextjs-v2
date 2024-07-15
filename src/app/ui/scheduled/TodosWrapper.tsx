@@ -7,6 +7,7 @@ import CalendarIcon from '@/app/ui/svg/calendar-icon';
 import TasksDoneIcon from '@/app/ui/svg/tasks-done-icon';
 import TasksTodoIcon from '@/app/ui/svg/tasks-todo-icon';
 import CalendarModal from '@/app/ui/scheduled/calendar/CalendarModal';
+import React from 'react';
 import * as utils from '@/utils/index';
 
 type ScheduledContainerProps = {
@@ -83,14 +84,6 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
 
   const filteredTodos = activeFilter === 'todo' ? tasks.todo : tasks.done;
 
-  const btnColorVariants = {
-    blue: 'bg-sky-200 hover:bg-sky-100',
-    red: 'bg-red-300 hover:bg-red-200',
-    green: 'bg-lime-200 hover:bg-lime-100',
-    gray:'bg-gray-100 hover:bg-gray-50'
-  }
-
-
   return (
     <>
       <section
@@ -123,9 +116,9 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
             className={
               activeFilter === 'todo'
                 ? utils.isInThePast(selectedDate)
-                  ? btnColorVariants.red
-                  : btnColorVariants.blue
-                : btnColorVariants.gray
+                  ? 'urgent'
+                  : 'future'
+                : 'unselected'
             }
             endIcon={
               <TasksTodoIcon
@@ -156,8 +149,8 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
             size="small"
             className={
               activeFilter === 'done'
-                ? btnColorVariants.green
-                : btnColorVariants.gray
+                ? 'completed'
+                : 'unselected'
             }
             endIcon={
               <TasksDoneIcon
@@ -189,12 +182,12 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
           <p className="text-gray-500">Loading tasks...</p>
         ) : activeFilter ? (
           filteredTodos.map((todo: Todo, index: number) => (
-            <>
+            <React.Fragment key={todo.id}>
               <TodoCard key={todo.id} todo={todo} />
               {index < filteredTodos.length - 1 && (
-                <div className="w-3/4 border-t border-gray-300 "></div>
+                <div key={`${todo.id}-separator`} className="w-3/4 border-t border-gray-300 "></div>
               )}
-            </>
+            </React.Fragment>
           ))
         ) : (
           <p className="text-gray-500">No tasks for the day</p>
