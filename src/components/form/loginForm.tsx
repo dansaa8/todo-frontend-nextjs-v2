@@ -39,7 +39,7 @@ export default function LoginForm() {
         </div>
         <FormErrorMessage>{formState.message}</FormErrorMessage>
         <FormButton
-          className="rounded p-2 bg-orange-300 mt-7"
+          className="rounded p-2 bg-amber-300 mt-7"
           pendingText="Logging in..."
         >
           Login

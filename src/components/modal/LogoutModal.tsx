@@ -69,7 +69,7 @@ export default function LogoutModal({ handleModalClose }: ModalProps) {
             Cancel
           </Button>
           <FormButton
-            className={`rounded-xl px-4 py-2 z-0 bg-emerald-400`}
+            className={`rounded-xl px-4 py-2 z-0 bg-amber-300`}
             pendingText=""
           >
             Logout

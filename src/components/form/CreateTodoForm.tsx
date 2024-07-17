@@ -38,9 +38,9 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
       <div className="flex justify-center flex-grow">
         <form
           action={action}
-          className="p-2 bg-gray-200 border border-gray-300 rounded max-w-96 m-4 flex flex-col flex-start gap-4 "
+          className="p-2 bg-gray-200 border border-gray-300 rounded max-w-96 m-4 flex flex-col flex-start justify-around gap-4 "
         >
-          <div className="flex flex-col gap-3   ">
+          <div className="flex flex-col gap-4">
             <h3 className="font-bold text-xl text-gray-500">Information</h3>
             <div>
               <TextField
@@ -65,13 +65,13 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
               />
             </div>
           </div>
-          <div className="w-full border-t border-gray-400"> </div>
+          {/* <div className="w-full border-t border-gray-400"> </div> */}
           <div className="flex items-center justify-between flex-col">
             <h3 className="font-bold text-xl w-full text-gray-500">
               Date & Time
             </h3>
             <div className="flex items-center">
-              <div className="flex flex-col gap-2 items-center justify-center">
+              <div className="flex flex-col gap-3 items-center justify-center">
                 <DateField
                   label="Date"
                   name="date"
@@ -99,15 +99,15 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
                     setShowCalendarModal(true);
                   }}
                 >
-                  <CalendarIcon className="w-24 h-24" />
+                  <CalendarIcon className="w-28 h-28" />
                 </IconButton>
               </div>
             </div>
           </div>
-          <div className="w-full border-t border-gray-400 my-2"> </div>
+          {/* <div className="w-full border-t border-gray-400 my-2"> </div> */}
           <FormErrorMessage>{formState.message}</FormErrorMessage>
           <FormButton
-            className="rounded p-2 bg-orange-300 h-12"
+            className="rounded p-2 bg-amber-300 min-h-12 max-h-20 grow"
             pendingText="Adding new Todo..."
           >
             <AddIcon />
