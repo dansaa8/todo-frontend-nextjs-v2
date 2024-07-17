@@ -7,9 +7,9 @@ import TimeBadge from '@/components/scheduled/card/time-badge';
 import HamburgerMenu from '@/components/scheduled/card/hamburger-menu';
 import CheckMarkIcon from '@/components/svg/checkmark-icon';
 import * as actions from '@/actions/index';
-import UndoIcon from '../../svg/undo-icon';
+import UndoIcon from '@/components/svg/undo-icon';
 import ActionModal from '@/components/scheduled/card/ActionModal';
-import FormButton from '../../common/FormButton';
+import FormButton from '@/components/common/FormButton';
 
 interface TodoCardProps {
   todo: Todo;
@@ -21,7 +21,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
 
   return (
     <div
-      className={`w-full border border-stone-300 rounded-lg shadow-lg pb-2 bg-white`}
+      className={`w-full max-w-[500px] border-stone-300 rounded-lg shadow-lg pb-2 bg-white`}
     >
       <section className="flex justify-between p-1 mb-2 px-2 gap-2 border-b border-stone-200 bg-white">
         <h3 className="font-bold italic text-stone-700 text-sm flex justify-center items-center">
@@ -47,23 +47,25 @@ export default function TodoCard({ todo }: TodoCardProps) {
       </section>
 
       <section className="flex justify-between px-5">
-        <div className="w-40 rounded border border-stone-300 bg-white flex-grow mr-5">
+        <div className="w-40 rounded border border-stone-300 bg-white mr-5 flex-grow h-20">
           <p className="p-1">{todo.description}</p>
         </div>
-        <div className="flex flex-col justify-center items-center">
-          <HamburgerMenu todo={todo} />
+        <div className="flex justify-around items-center flex-grow gap-2">
+          <HamburgerMenu todo={todo} className={'w-12 h-12 flex-shrink min-h-10 min-w-10'}/>
           {!todo.completedAt ? (
             <FormButton
+              className={'h-12 w-12'}
               isIconOnly
               pendingText=""
               onClick={() => {
                 actions.completeTodo(todo.id);
               }}
             >
-              <CheckMarkIcon />
+              <CheckMarkIcon className=''/>
             </FormButton>
           ) : (
             <Button
+            className='h-12 w-12'
               isIconOnly
               onClick={() => {
                 setShowUndoModal(true);

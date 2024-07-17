@@ -16,7 +16,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      {/* Remove the max-w-screen-sm from here when GUI for larger screens are being implemented */}
+      <body className={`${inter.className} antialiased max-w-screen-sm mx-auto`}>  
         <SnackbarProvider>{children}</SnackbarProvider>
         <div className="modal-container z-40"></div>
       </body>

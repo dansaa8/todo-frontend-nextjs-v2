@@ -39,8 +39,7 @@ export default function NavLinks() {
   };
 
   const btnStyling =
-    'flex h-48px grow items-center justify-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600' +
-    'md:flex-none md:justify-start md:p-2 md:px-3';
+    'flex h-48px grow items-center justify-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600';
 
   const highlighted =
     'opacity-100 border-b-4 border-white rounded-none text-white';
@@ -62,7 +61,6 @@ export default function NavLinks() {
             onClick={() => handleLinkClick(link.href)}
           >
             <LinkIcon className="w-14" />
-            <p className="hidden md:block">{link.name}</p>
           </Link>
         );
       })}

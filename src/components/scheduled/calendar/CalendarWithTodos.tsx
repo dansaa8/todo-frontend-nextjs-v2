@@ -86,7 +86,7 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
         (d) => isSameDay(d, date) && !isToday(date)
       );
 
-      if (isUrgent) {
+      if (isUrgent && !isNew) {
         className += isSelected ? 'urgentSelected' : 'urgent';
       } else if (isCompletedAndInThePast && !isNew) {
         className += isSelected ? 'completedSelected' : 'completed';

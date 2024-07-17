@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import {
   Dropdown,
   DropdownTrigger,
@@ -13,22 +13,21 @@ import DeleteIcon from '@/components/svg/delete-icon';
 import EditIcon from '@/components/svg/edit-icon';
 import ActionModal from '@/components/scheduled/card/ActionModal';
 import * as actions from '@/actions/index';
-import Link from 'next/link';
 
 interface HamburgerMenuProps {
   todo: Todo;
+  [key: string]: any;
 }
 
-export default function HamburgerMenu({ todo }: HamburgerMenuProps) {
+export default function HamburgerMenu({ todo, ...rest }: HamburgerMenuProps) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const divEl = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={divEl} className="">
-      <Dropdown>
+    <>
+      <Dropdown >
         <DropdownTrigger>
-          <Button isIconOnly variant="bordered">
-            <HamburgerIcon />
+          <Button isIconOnly {...rest}>
+            <HamburgerIcon className='h-full w-full'/>
           </Button>
         </DropdownTrigger>
         <DropdownMenu
@@ -63,6 +62,6 @@ export default function HamburgerMenu({ todo }: HamburgerMenuProps) {
           snackbarMessage="was deleted."
         />
       )}
-    </div>
+    </>
   );
 }
