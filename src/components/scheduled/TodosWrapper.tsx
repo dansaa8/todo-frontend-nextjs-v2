@@ -9,6 +9,7 @@ import CalendarModal from '@/components/scheduled/calendar/CalendarModal';
 import React from 'react';
 import * as utils from '@/utils/index';
 import setDayColor from '@/utils/setDayColor';
+import _ from 'lodash';
 
 type ScheduledContainerProps = {
   todos: Todo[];
@@ -35,11 +36,14 @@ export default function TodosWrapper({ todos }: ScheduledContainerProps) {
     });
 
     const updatedTasks = {
-      todo: todosForSelectedDate.filter(
-        (todo: Todo) => todo.completedAt === null
+      todo: _.sortBy(
+        todosForSelectedDate.filter((todo: Todo) => todo.completedAt === null),
+        (todo: Todo) => todo.deadline || Infinity // Handle null deadlines
       ),
-      done: todosForSelectedDate.filter(
-        (todo: Todo) => todo.completedAt !== null
+
+      done: _.sortBy(
+        todosForSelectedDate.filter((todo: Todo) => todo.completedAt !== null),
+        (todo: Todo) => todo.completedAt || Infinity // Handle null completedAt
       ),
     };
 
