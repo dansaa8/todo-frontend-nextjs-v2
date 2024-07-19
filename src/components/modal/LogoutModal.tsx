@@ -3,7 +3,6 @@ import { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from '@nextui-org/react';
 import CancelIcon from '@/components/svg/cancel-icon';
-import FormButton from '@/components/common/FormButton';
 import { useSnackbar } from '@/providers/snackbar-context';
 import logoutAction from '@/actions/logoutAction';
 import { ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/solid';
@@ -38,7 +37,7 @@ export default function LogoutModal({ handleModalClose }: ModalProps) {
     };
   }, [handleModalClose]);
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleLogout = async () => {
     await logoutAction();
     showSnackbar(`Logged out`);
     handleModalClose(true); // Indicates that the user has logged out
@@ -50,7 +49,7 @@ export default function LogoutModal({ handleModalClose }: ModalProps) {
 
 
   return ReactDOM.createPortal(
-    <form action={handleSubmit}>
+    <div>
       <div className="z-10 fixed inset-0 bg-gray-300 opacity-80 flex justify-center items-center">
         <div className="fixed inset-0"></div>
       </div>
@@ -74,15 +73,15 @@ export default function LogoutModal({ handleModalClose }: ModalProps) {
           >
             Cancel
           </Button>
-          <FormButton
+          <Button
             className={`rounded-xl px-4 py-2 z-0 bg-amber-300`}
-            pendingText=""
+            onClick={handleLogout}
           >
             Logout
-          </FormButton>
+          </Button>
         </div>
       </div>
-    </form>,
+    </div>,
     document.querySelector('.modal-container') as HTMLDivElement
   );
 }
