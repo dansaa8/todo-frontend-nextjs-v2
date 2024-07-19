@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { Button } from '@nextui-org/react';
 import CancelIcon from '@/components/svg/cancel-icon';
 import { useSnackbar } from '@/providers/snackbar-context';
-import logoutAction from '@/actions/logoutAction';
 import { ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/solid';
 
 interface ModalProps {
@@ -38,7 +37,6 @@ export default function LogoutModal({ handleModalClose }: ModalProps) {
   }, [handleModalClose]);
 
   const handleLogout = async () => {
-    await logoutAction();
     showSnackbar(`Logged out`);
     handleModalClose(true); // Indicates that the user has logged out
   };

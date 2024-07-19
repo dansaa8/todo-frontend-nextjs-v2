@@ -5,7 +5,7 @@ import {
   PowerIcon,
 } from '@heroicons/react/24/solid';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import LogoutModal from '@/components/modal/LogoutModal';
 import { useState } from 'react';
 import clsx from 'clsx';
@@ -15,12 +15,11 @@ const links = [
   { name: 'Create', href: '/todo/new', icon: PlusCircleIcon },
 ];
 
-const logoutButton = { name: 'Logout', href: '/logout', icon: PowerIcon };
-
 export default function NavLinks() {
   const pathname = usePathname();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [previousPathname, setPreviousPathname] = useState('');
+  const router = useRouter();
 
   const handleLogoutClick = () => {
     // Save the current pathname
@@ -33,13 +32,18 @@ export default function NavLinks() {
     setShowLogoutModal(true);
   };
 
-  const handleModalClose = (isLoggedOut? : boolean) => {
+  const handleModalClose = (isLoggedOut = false) => {
     setShowLogoutModal(false);
 
     // Only restore the previous pathname if the user is not logged out
     if (!isLoggedOut && previousPathname) {
       history.replaceState(null, '', previousPathname);
     }
+
+    // Clear the token cookie
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    // Redirect to login page
+    router.push('/login');
   };
 
   const btnStyling =
