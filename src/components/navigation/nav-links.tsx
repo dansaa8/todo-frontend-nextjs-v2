@@ -33,11 +33,11 @@ export default function NavLinks() {
     setShowLogoutModal(true);
   };
 
-  const handleModalClose = () => {
+  const handleModalClose = (isLoggedOut? : boolean) => {
     setShowLogoutModal(false);
 
-    // Restore the previous pathname if the modal is closed
-    if (previousPathname) {
+    // Only restore the previous pathname if the user is not logged out
+    if (!isLoggedOut && previousPathname) {
       history.replaceState(null, '', previousPathname);
     }
   };

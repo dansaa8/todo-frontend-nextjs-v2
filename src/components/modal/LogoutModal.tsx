@@ -8,7 +8,7 @@ import logoutAction from '@/actions/logoutAction';
 import { ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/solid';
 
 interface ModalProps {
-  handleModalClose: () => void;
+  handleModalClose: (isLoggedOut?: boolean) => void;
 }
 
 export default function LogoutModal({ handleModalClose }: ModalProps) {
@@ -40,8 +40,13 @@ export default function LogoutModal({ handleModalClose }: ModalProps) {
   const handleSubmit = async (formData: FormData) => {
     await logoutAction();
     showSnackbar(`Logged out`);
-    handleModalClose();
+    handleModalClose(true); // Indicates that the user has logged out
   };
+
+  const handleCancelClick = () => {
+    handleModalClose(false); // Indicates that the user has cancelled
+  };
+
 
   return ReactDOM.createPortal(
     <form action={handleSubmit}>
@@ -54,7 +59,7 @@ export default function LogoutModal({ handleModalClose }: ModalProps) {
       >
         <CancelIcon
           className="absolute top-2 right-2  cursor-pointer  hover:bg-gray-200 rounded-xl"
-          onClick={handleModalClose}
+          onClick={handleCancelClick}
         />
         <h3 className="font-bold text-stone-700 col-start-2 col-end-4 text-center">
           Are you sure you want to logout?
@@ -64,7 +69,7 @@ export default function LogoutModal({ handleModalClose }: ModalProps) {
         <div className="flex justify-around gap-10">
           <Button
             className="rounded-xl bg-gray-200 px-4 py-2 text-gray-800 z-0 hover:bg-gray-300"
-            onClick={handleModalClose}
+            onClick={handleCancelClick}
           >
             Cancel
           </Button>
