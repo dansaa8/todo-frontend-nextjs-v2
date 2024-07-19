@@ -4,12 +4,11 @@ import {
   PlusCircleIcon,
   PowerIcon,
 } from '@heroicons/react/24/solid';
-
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
 import LogoutModal from '@/components/modal/LogoutModal';
-
+import { useState } from 'react';
+import clsx from 'clsx';
 
 const links = [
   { name: 'Scheduled', href: '/todo/scheduled', icon: CalendarIcon },
@@ -20,45 +19,49 @@ const logoutButton = { name: 'Logout', href: '/logout', icon: PowerIcon };
 
 export default function NavLinks() {
   const pathname = usePathname();
-  const [activeLink, setActiveLink] = useState(pathname);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-
-  const handleLinkClick = (href : string) => {
-    setActiveLink(href);
-  };
+  const [previousPathname, setPreviousPathname] = useState('');
 
   const handleLogoutClick = () => {
-    const currentLink = activeLink;
-    setActiveLink('/logout');
+    // Save the current pathname
+    setPreviousPathname(pathname);
+
+    // Update the URL without navigating
+    history.replaceState(null, '', '/logout');
+
+    // Show the logout modal
     setShowLogoutModal(true);
   };
 
   const handleModalClose = () => {
     setShowLogoutModal(false);
-    setActiveLink(usePathname);
+
+    // Restore the previous pathname if the modal is closed
+    if (previousPathname) {
+      history.replaceState(null, '', previousPathname);
+    }
   };
 
   const btnStyling =
-    'flex h-48px grow items-center justify-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600';
-
-  const highlighted =
-    'opacity-100 border-b-4 border-white rounded-none text-white';
-  const unselected = 'opacity-50';
+    'flex h-48px grow items-center justify-center gap-2 rounded-md p-3 text-sm font-medium';
 
   return (
     <>
       {links.map((link) => {
         const LinkIcon = link.icon;
-        const isActive = activeLink === link.href;
+        const isActive = pathname === link.href;
 
         return (
           <Link
             key={link.name}
             href={link.href}
             passHref
-            className={`${btnStyling}
-                          ${isActive ? highlighted : unselected}`}
-            onClick={() => handleLinkClick(link.href)}
+            className={clsx(
+              btnStyling,
+              isActive
+                ? 'opacity-100 border-b-4 border-white rounded-none text-white'
+                : 'opacity-50'
+            )}
           >
             <LinkIcon className="w-14" />
           </Link>
@@ -66,10 +69,12 @@ export default function NavLinks() {
       })}
       <button
         onClick={handleLogoutClick}
-        className={`${btnStyling}
-                          ${
-                            activeLink === '/logout' ? highlighted : unselected
-                          }`}
+        className={clsx(
+          btnStyling,
+          pathname === '/logout'
+            ? 'opacity-100 border-b-4 border-white rounded-none text-white'
+            : 'opacity-50'
+        )}
       >
         <PowerIcon className="w-14" />
       </button>
