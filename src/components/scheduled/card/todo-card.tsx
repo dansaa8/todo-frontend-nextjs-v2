@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@nextui-org/react';
 
 import { Todo } from '@/lib/definitions';
@@ -18,6 +18,21 @@ interface TodoCardProps {
 export default function TodoCard({ todo }: TodoCardProps) {
   const todoColor = todo.completedAt ? 'bg-green-50' : 'bg-sky-50';
   const [showUndoModal, setShowUndoModal] = useState(false);
+
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const textElement = textRef.current;
+    // scrollHeight: The total height of the element's content, including the overflow.
+    // clientHeight: The visible height of the element.
+    setIsOverflowing(textElement.scrollHeight > textElement.clientHeight);
+  }, [todo.description]);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
     <div
@@ -47,9 +62,21 @@ export default function TodoCard({ todo }: TodoCardProps) {
       </section>
 
       <section className="flex justify-between px-5">
-        <div className="w-40 rounded border border-stone-300 bg-white mr-5 flex-grow h-20">
-          <p className="p-1">{todo.description}</p>
+      <div className="flex flex-col justify-center items-center">
+      <div className={`w-40 rounded border border-stone-300 bg-white mr-5 flex-grow ${isExpanded ? 'h-auto' : 'h-20'}`}>
+        <div
+          ref={textRef}
+          className={`p-1 overflow-hidden break-words w-full ${isExpanded ? '' : 'line-clamp-3'}`}
+        >
+          {todo.description}
         </div>
+      </div>
+      {isOverflowing && (
+        <button className="text-blue-500 mt-2" onClick={toggleExpand}>
+          {isExpanded ? 'Show Less' : 'Show More'}
+        </button>
+      )}
+    </div>
         <div className="flex justify-around items-center flex-grow gap-2">
           <HamburgerMenu todo={todo} className={'w-12 h-12 flex-shrink min-h-10 min-w-10'}/>
           {!todo.completedAt ? (
