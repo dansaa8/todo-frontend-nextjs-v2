@@ -38,12 +38,13 @@ export default function NavLinks() {
     // Only restore the previous pathname if the user is not logged out
     if (!isLoggedOut && previousPathname) {
       history.replaceState(null, '', previousPathname);
+    } else {
+      // Clear the token cookie
+      document.cookie =
+        'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      // Redirect to login page
+      router.push('/login');
     }
-
-    // Clear the token cookie
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    // Redirect to login page
-    router.push('/login');
   };
 
   const btnStyling =
