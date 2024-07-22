@@ -62,47 +62,62 @@ export default function TodoCard({ todo }: TodoCardProps) {
       </section>
 
       <section className="flex justify-between px-5">
-      <div className="flex flex-col justify-center items-center">
-      <div className={`w-40 rounded border border-stone-300 bg-white mr-5 flex-grow ${isExpanded ? 'h-auto' : 'h-20'}`}>
-        <div
-          ref={textRef}
-          className={`p-1 overflow-hidden break-words w-full ${isExpanded ? '' : 'line-clamp-3'}`}
-        >
-          {todo.description}
-        </div>
-      </div>
-      {isOverflowing && (
-        <button className="text-blue-500 mt-2" onClick={toggleExpand}>
-          {isExpanded ? 'Show Less' : 'Show More'}
-        </button>
-      )}
-    </div>
-        <div className="flex justify-around items-center flex-grow gap-2">
-          <HamburgerMenu todo={todo} className={'w-12 h-12 flex-shrink min-h-10 min-w-10'}/>
-          {!todo.completedAt ? (
-            <FormButton
-              className={'h-12 w-12'}
-              isIconOnly
-              pendingText=""
-              onClick={() => {
-                actions.completeTodo(todo.id);
-              }}
+        <div>
+          <div
+            className={`w-52 rounded border border-stone-300 bg-white mr-5 flex-grow ${
+              isExpanded ? 'h-auto' : 'h-20'
+            }`}
+          >
+            <div
+              ref={textRef}
+              className={`p-1 overflow-hidden break-words w-full ${
+                isExpanded ? '' : 'line-clamp-3'
+              }`}
             >
-              <CheckMarkIcon className=''/>
-            </FormButton>
-          ) : (
-            <Button
-            className='h-12 w-12'
-              isIconOnly
-              onClick={() => {
-                setShowUndoModal(true);
-              }}
-            >
-              <UndoIcon />
-            </Button>
+              {todo.description}
+            </div>
+          </div>
+          {isOverflowing && (
+            <button className="text-blue-500 mt-2" onClick={toggleExpand}>
+              {isExpanded ? 'Show Less' : 'Show More'}
+            </button>
           )}
         </div>
+        <div className='flex h-full w-full items-center justify-center pt-1'>
+          <div className="flex flex-wrap-reverse justify-around items-end gap-2 w-full max-h-24">
+            <HamburgerMenu
+              todo={todo}
+              className="flex-grow flex-shrink max-w-12 max-h-14 min-w-10 min-h-10"
+              style={{ height: 'auto' }}
+            />
+            {!todo.completedAt ? (
+              <FormButton
+                className="flex-grow flex-shrink max-w-12 max-h-14 min-w-10 min-h-10"
+                isIconOnly
+                pendingText=""
+                style={{ height: 'auto' }}
+                onClick={() => {
+                  actions.completeTodo(todo.id);
+                }}
+              >
+                <CheckMarkIcon className="h-full w-full" />
+              </FormButton>
+            ) : (
+              <Button
+                className="flex-grow flex-shrink max-w-16 max-h-16 min-w-10 min-h-10"
+                isIconOnly
+                style={{ height: 'auto' }}
+                onClick={() => {
+                  setShowUndoModal(true);
+                }}
+              >
+                <UndoIcon />
+              </Button>
+            )}
+          </div>
+        </div>
       </section>
+
       {showUndoModal && (
         <ActionModal
           handleModalClose={() => {

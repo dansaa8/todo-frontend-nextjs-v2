@@ -21,9 +21,9 @@ export async function createTodo(
       };
     }
 
-    if (typeof description !== 'string' || description.length > 100) {
+    if (typeof description !== 'string' || description.length > 150) {
       return {
-        message: 'Description must not be more than 100 characters',
+        message: 'Description must not be more than 150 characters',
       };
     }
 
