@@ -21,13 +21,15 @@ export default function TodoCard({ todo }: TodoCardProps) {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
-  const textRef = useRef(null);
+  const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const textElement = textRef.current;
-    // scrollHeight: The total height of the element's content, including the overflow.
-    // clientHeight: The visible height of the element.
-    setIsOverflowing(textElement.scrollHeight > textElement.clientHeight);
+    if (textElement) {
+      // scrollHeight: The total height of the element's content, including the overflow.
+      // clientHeight: The visible height of the element.
+      setIsOverflowing(textElement.scrollHeight > textElement.clientHeight);
+    }
   }, [todo.description]);
 
   const toggleExpand = () => {
@@ -83,7 +85,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
             </button>
           )}
         </div>
-        <div className='flex h-full w-full items-center justify-center pt-1'>
+        <div className="flex h-full w-full items-center justify-center pt-1">
           <div className="flex flex-wrap-reverse justify-around items-end gap-2 w-full max-h-24">
             <HamburgerMenu
               todo={todo}
