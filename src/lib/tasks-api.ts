@@ -1,6 +1,6 @@
 // app/lib/api.ts
 import { getToken } from '@/lib/cookies';
-import { NewTodo } from '@/lib/definitions';
+import { NewTodo, UpdateTodo } from '@/lib/definitions';
 
 const headers = (): HeadersInit => {
   const token = getToken();
@@ -53,6 +53,20 @@ const create = async (newTodo: NewTodo) => {
   }
 };
 
+const updateById = async (id: number, updatedTodo: UpdateTodo) => {
+  try {
+    const response = await fetch(`${TASKS_URL}/${id}`, {
+      method: 'PATCH',
+      headers: headers(),
+      body: JSON.stringify(updatedTodo),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log('Error:', error);
+  }
+}
+
 const deleteById = async (id: number) => {
   try {
     const response = await fetch(`${TASKS_URL}/${id}`, {
@@ -94,4 +108,4 @@ const setCompletedAtToNullById = async (id: number) => {
   }
 };
 
-export { getAll, getById, create, deleteById, setCompleteById, setCompletedAtToNullById };
+export { getAll, getById, create, updateById, deleteById, setCompleteById, setCompletedAtToNullById };

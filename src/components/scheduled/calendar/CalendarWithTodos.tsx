@@ -6,7 +6,7 @@ import { Todo } from '@/lib/definitions';
 import { isSameDay, isToday, setToMidnight } from '@/utils';
 
 interface CalendarWithTodosProps {
-  todos: Todo[];
+  todos?: Todo[];
   handleDateChange: (date: Date) => void;
   selectedDate: Date | null;
   isNew: boolean; // prop to determine if we are creating a new todo
@@ -25,22 +25,25 @@ const CalendarWithTodos: React.FC<CalendarWithTodosProps> = ({
   useEffect(() => {  
     const today = setToMidnight(new Date());
   
-    const datesWithTodos = todos.map((todo) => ({
-      deadline: setToMidnight(todo.deadline),
-      completedAt: todo.completedAt ? setToMidnight(todo.completedAt) : null,
-    }));
-    setDatesWithTodos(datesWithTodos.map((item) => item.deadline));
-  
-    // Filter urgent and completed dates from datesWithTodos
-    const urgentDates = datesWithTodos
-      .filter((item) => !item.completedAt && item.deadline < today)
-      .map((item) => item.deadline);
-    setUrgentDates(urgentDates);
-  
-    const completedDates = datesWithTodos
-      .filter((item) => item.completedAt && item.deadline < today)
-      .map((item) => item.deadline);
-    setCompletedDates(completedDates);
+    if (todos) { // Only set states when user is overviewing his/her todos.
+      const datesWithTodos = todos.map((todo) => ({
+        deadline: setToMidnight(todo.deadline),
+        completedAt: todo.completedAt ? setToMidnight(todo.completedAt) : null,
+      }));
+      setDatesWithTodos(datesWithTodos.map((item) => item.deadline));
+    
+      // Filter urgent and completed dates from datesWithTodos
+      const urgentDates = datesWithTodos
+        .filter((item) => !item.completedAt && item.deadline < today)
+        .map((item) => item.deadline);
+      setUrgentDates(urgentDates);
+    
+      const completedDates = datesWithTodos
+        .filter((item) => item.completedAt && item.deadline < today)
+        .map((item) => item.deadline);
+      setCompletedDates(completedDates);
+    }
+
   }, [todos]);
 
   const tileDisabled = ({

@@ -11,3 +11,11 @@ export type NewTodo = {
   description: string | null;
   deadline: Date;
 };
+
+
+export type UpdateTodo = {
+  name: string;
+  description: string | null;
+  deadline: Date;
+};
+

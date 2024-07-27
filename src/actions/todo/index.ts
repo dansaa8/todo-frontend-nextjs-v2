@@ -3,67 +3,65 @@
 import { redirect } from 'next/navigation';
 import * as todoApi from '@/lib/tasks-api';
 import { revalidatePath } from 'next/cache';
+import { validateFormData } from './utils';
 
 export async function createTodo(
   formState: { message: string },
   formData: FormData
 ) {
   try {
-    const name = formData.get('name') as string;
-    const description = formData.get('description') as string;
+    const validationResult = validateFormData(formData);
 
-    const date = formData.get('date') as string;
-    const time = formData.get('time') as string;
-
-    if (typeof name !== 'string' || name.length < 3) {
-      return {
-        message: 'Name must be longer',
-      };
+    if (!validationResult.valid) {
+      return { message: validationResult.message };
     }
 
-    if (typeof description !== 'string' || description.length > 150) {
-      return {
-        message: 'Description must not be more than 150 characters',
-      };
-    }
+    const { name, description, deadline } = validationResult.data;
 
-    if (!date || !time) {
-      return {
-        message: 'Date and time must be provided',
-      };
-    }
-
-    const deadline = new Date(`${date} ${time}`);
-
-    if (isNaN(deadline.getTime())) {
-      return {
-        message: 'Invalid date or time format',
-      };
-    }
-
-    if (deadline < new Date()) {
-      return {
-        message: 'Deadline must be in the future',
-      };
-    }
-
-    const todo = await todoApi.create({
-      name: name,
-      description: description,
-      deadline: deadline,
+    await todoApi.create({
+      name,
+      description,
+      deadline,
     });
   } catch (err: unknown) {
     if (err instanceof Error) {
-      return {
-        message: err.message,
-      };
-    } else
-      return {
-        message: 'An error occurred while creating the todo',
-      };
+      return { message: err.message };
+    } else {
+      return { message: 'An error occurred while creating the todo' };
+    }
   }
   revalidatePath('/todo/scheduled');
-  redirect(`/todo/scheduled`);
+  redirect('/todo/scheduled');
+}
+
+export async function updateTodo(
+  id: number,
+  formState: { message: string },
+  formData: FormData
+) {
+  try {
+    const validationResult = validateFormData(formData);
+
+    if (!validationResult.valid) {
+      return { message: validationResult.message };
+    }
+
+    const { name, description, deadline } = validationResult.data;
+
+    await todoApi.updateById(id, {
+      name,
+      description,
+      deadline,
+    });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return { message: err.message };
+    } else {
+      return { message: 'An error occurred while updating the todo' };
+    }
+  }
+  revalidatePath('/todo/scheduled');
+  redirect('/todo/scheduled');
 }
 
 export async function deleteTodo(formData: FormData) {
@@ -102,5 +100,3 @@ export async function undoTodo(formData: FormData) {
     revalidatePath('/todo/scheduled');
   } catch (error) {}
 }
-
-export {};

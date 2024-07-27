@@ -8,18 +8,35 @@ import { Todo } from '@/lib/definitions';
 import CalendarIcon from '@/components/svg/calendar-icon';
 import { IconButton } from '@mui/material';
 import 'dayjs/locale/zh-cn';
-import * as actions from '@/actions';
+import * as actions from '@/actions/todo';
 import FormButton from '@/components/common/FormButton';
 import FormErrorMessage from '@/components/common/FormErrorMessage';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CalendarModal from '@/components/scheduled/calendar/CalendarModal';
 import dayjs, { Dayjs } from 'dayjs';
 import AddIcon from '@mui/icons-material/Add';
 
-export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
-  const [formState, action] = useFormState(actions.createTodo, { message: '' });
+interface TodoFormProps {
+  todo?: Todo; // Passed in as a parameter when editing a todo
+}
+
+export default function TodoForm({ todo }: TodoFormProps) {
+const [formState, action] = useFormState(
+    todo ? actions.updateTodo.bind(null, todo.id) : actions.createTodo,
+    { message: '' }
+  );
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [showCalendarModal, setShowCalendarModal] = useState(false);
+
+  useEffect(() => {
+    if (todo) {
+      setName(todo.name);
+      setDescription(todo.description || '');
+      setSelectedDate(dayjs(todo.deadline));
+    }
+  }, []);
 
   // Convert Dayjs to Date and set the state
   const handleDateChange = (date: Dayjs | null) => {
@@ -51,6 +68,8 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
                 className="bg-white"
                 fullWidth
                 size="small"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div>
@@ -62,10 +81,11 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
                 rows={4}
                 className="bg-white"
                 fullWidth
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
           </div>
-          {/* <div className="w-full border-t border-gray-400"> </div> */}
           <div className="flex items-center justify-between flex-col">
             <h3 className="font-bold text-xl w-full text-gray-500">
               Date & Time
@@ -81,14 +101,14 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
                   disablePast
                   className="bg-white"
                   size="small"
-                  // fullWidth
                 />
                 <TimeField
                   label="Time"
                   name="time"
                   id="time"
+                  value={selectedDate}
+                  onChange={(newValue) => setSelectedDate(newValue)}
                   className="bg-white"
-                  // fullWidth
                   size="small"
                 />
               </div>
@@ -104,14 +124,13 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
               </div>
             </div>
           </div>
-          {/* <div className="w-full border-t border-gray-400 my-2"> </div> */}
           <FormErrorMessage>{formState.message}</FormErrorMessage>
           <FormButton
             className="rounded p-2 bg-amber-300 min-h-12 max-h-20 grow"
             pendingText="Adding new Todo..."
           >
             <AddIcon />
-            Add Todo
+            {todo ? 'Update Todo' : 'Add Todo'}
           </FormButton>
         </form>
       </div>
@@ -122,7 +141,6 @@ export default function CreateTodoForm({ todos }: { todos: Todo[] }) {
             setShowCalendarModal(false);
           }}
           handleDateChange={(date: Date) => handleDateChange(dayjs(date))}
-          todos={todos}
           selectedDate={
             isValidDate(selectedDate) ? selectedDate!.toDate() : null
           }
