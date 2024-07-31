@@ -25,21 +25,22 @@ export default function HamburgerMenu({ todo, ...rest }: HamburgerMenuProps) {
 
   return (
     <>
-      <Dropdown >
+      <Dropdown>
         <DropdownTrigger>
           <Button isIconOnly {...rest}>
-            <HamburgerIcon className='h-full w-full'/>
+            <HamburgerIcon className="h-full w-full" />
           </Button>
         </DropdownTrigger>
         <DropdownMenu
           variant="faded"
           aria-label="Dropdown menu with icons"
-          // disabledKeys={['edit']}
         >
-          <DropdownItem key="edit" startContent={<EditIcon className={''} />}>
-            <Link href={`${todo.id}/edit`}>
-              Edit Todo
-            </Link>
+          <DropdownItem
+            key="edit"
+            startContent={<EditIcon className={''} />}
+            href={`${todo.id}/edit`}
+          >
+            Edit Todo
           </DropdownItem>
           <DropdownItem
             onPress={() => {

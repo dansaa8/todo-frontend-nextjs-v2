@@ -21,7 +21,7 @@ interface TodoFormProps {
 }
 
 export default function TodoForm({ todo }: TodoFormProps) {
-const [formState, action] = useFormState(
+  const [formState, action] = useFormState(
     todo ? actions.updateTodo.bind(null, todo.id) : actions.createTodo,
     { message: '' }
   );
@@ -53,86 +53,95 @@ const [formState, action] = useFormState(
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="zh-cn">
       <div className="flex justify-center flex-grow">
-        <form
-          action={action}
-          className="p-2 bg-gray-200 border border-gray-300 rounded max-w-96 m-4 flex flex-col flex-start justify-around gap-4 "
-        >
-          <div className="flex flex-col gap-4">
-            <h3 className="font-bold text-xl text-gray-500">Information</h3>
-            <div>
-              <TextField
-                name="name"
-                id="name"
-                label="Name"
-                variant="outlined"
-                className="bg-white"
-                fullWidth
-                size="small"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div>
-              <TextField
-                name="description"
-                id="description"
-                label="Description"
-                multiline
-                rows={4}
-                className="bg-white"
-                fullWidth
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="flex items-center justify-between flex-col">
-            <h3 className="font-bold text-xl w-full text-gray-500">
-              Date & Time
-            </h3>
-            <div className="flex items-center">
-              <div className="flex flex-col gap-3 items-center justify-center">
-                <DateField
-                  label="Date"
-                  name="date"
-                  id="date"
-                  value={selectedDate}
-                  onChange={(newValue) => setSelectedDate(newValue)}
-                  disablePast
-                  className="bg-white"
-                  size="small"
-                />
-                <TimeField
-                  label="Time"
-                  name="time"
-                  id="time"
-                  value={selectedDate}
-                  onChange={(newValue) => setSelectedDate(newValue)}
-                  className="bg-white"
-                  size="small"
-                />
-              </div>
-              <div className="flex items-center justify-center">
-                <IconButton
-                  className="text-black-800"
-                  onClick={() => {
-                    setShowCalendarModal(true);
-                  }}
-                >
-                  <CalendarIcon className="w-28 h-28" />
-                </IconButton>
-              </div>
-            </div>
-          </div>
-          <FormErrorMessage>{formState.message}</FormErrorMessage>
-          <FormButton
-            className="rounded p-2 bg-amber-300 min-h-12 max-h-20 grow"
-            pendingText="Adding new Todo..."
+        <div className='bg-gray-100 border border-gray-300 rounded max-w-96 m-2'>
+          <form
+            action={action}
+            className="px-2 pb-2 flex flex-col flex-start justify-between gap-1 h-full max-h-[750px]"
           >
-            <AddIcon />
-            {todo ? 'Update Todo' : 'Add Todo'}
-          </FormButton>
-        </form>
+            <h1 className="text-center font-bold text-xl py-6 h-20 border-b-1">
+              {todo ? 'Edit' : 'New'} Todo
+            </h1>
+            {/* <div className=' text-gray-500 border-b-1'></div> */}
+            <div className="flex flex-col gap-4 pt-2">
+              <h3 className="font-bold text-sm text-gray-500 italic">
+                Information
+              </h3>
+              <div>
+                <TextField
+                  name="name"
+                  id="name"
+                  label="Name"
+                  variant="outlined"
+                  className="bg-white"
+                  fullWidth
+                  size="small"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div>
+                <TextField
+                  name="description"
+                  id="description"
+                  label="Description"
+                  multiline
+                  rows={4}
+                  className="bg-white"
+                  fullWidth
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="border-b-1 text-gray-500 py-2"></div>
+            <div className="flex items-center justify-between flex-col pt-3">
+              <h3 className="font-bold text-sm w-full text-gray-500 italic">
+                Date & Time
+              </h3>
+              <div className="flex items-center">
+                <div className="flex flex-col gap-3 items-center justify-center">
+                  <DateField
+                    label="Date"
+                    name="date"
+                    id="date"
+                    value={selectedDate}
+                    onChange={(newValue) => setSelectedDate(newValue)}
+                    disablePast
+                    className="bg-white"
+                    size="small"
+                  />
+                  <TimeField
+                    label="Time"
+                    name="time"
+                    id="time"
+                    value={selectedDate}
+                    onChange={(newValue) => setSelectedDate(newValue)}
+                    className="bg-white"
+                    size="small"
+                  />
+                </div>
+                <div className="flex items-center justify-center">
+                  <IconButton
+                    className="text-black-800"
+                    onClick={() => {
+                      setShowCalendarModal(true);
+                    }}
+                  >
+                    <CalendarIcon className="w-28 h-28" />
+                  </IconButton>
+                </div>
+              </div>
+            </div>
+            <FormErrorMessage>{formState.message}</FormErrorMessage>
+            <FormButton
+              className="rounded p-2 bg-amber-300 min-h-12 max-h-20 grow"
+              pendingText="Adding new Todo..."
+            >
+              <AddIcon />
+              {todo ? 'Update Todo' : 'Add Todo'}
+            </FormButton>
+          </form>
+        </div>
       </div>
 
       {showCalendarModal && (
