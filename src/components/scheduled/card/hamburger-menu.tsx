@@ -12,7 +12,8 @@ import HamburgerIcon from '@/components/svg/hamburger-icon';
 import DeleteIcon from '@/components/svg/delete-icon';
 import EditIcon from '@/components/svg/edit-icon';
 import ActionModal from '@/components/scheduled/card/ActionModal';
-import * as actions from '@/actions/index';
+import * as actions from '@/actions/todo/index';
+import Link from 'next/link';
 
 interface HamburgerMenuProps {
   todo: Todo;
@@ -24,18 +25,21 @@ export default function HamburgerMenu({ todo, ...rest }: HamburgerMenuProps) {
 
   return (
     <>
-      <Dropdown >
+      <Dropdown>
         <DropdownTrigger>
           <Button isIconOnly {...rest}>
-            <HamburgerIcon className='h-full w-full'/>
+            <HamburgerIcon className="h-full w-full" />
           </Button>
         </DropdownTrigger>
         <DropdownMenu
           variant="faded"
           aria-label="Dropdown menu with icons"
-          disabledKeys={['edit']}
         >
-          <DropdownItem key="edit" startContent={<EditIcon className={''} />}>
+          <DropdownItem
+            key="edit"
+            startContent={<EditIcon className={''} />}
+            href={`${todo.id}/edit`}
+          >
             Edit Todo
           </DropdownItem>
           <DropdownItem

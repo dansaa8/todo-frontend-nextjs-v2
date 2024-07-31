@@ -1,9 +1,6 @@
 import React from 'react';
 import { Button } from '@mui/material';
-import TasksDoneIcon from '@/components/svg/tasks-done-icon';
-import TasksTodoIcon from '@/components/svg/tasks-todo-icon';
 import { Todo } from '@/lib/definitions';
-import * as utils from '@/utils/index';
 
 interface TodosFilterProps {
   activeFilter: 'todo' | 'done' | null;
@@ -30,15 +27,6 @@ export default function TodosFilter({
                 : 'future'
               : 'unselected'
           }
-          endIcon={
-            <TasksTodoIcon
-              className={
-                tasks.todo.length === 0
-                  ? `text-gray-300 w-4 h-4`
-                  : 'text-gray-800 w-4 h-4'
-              }
-            />
-          }
           onClick={() => setActiveFilter('todo')}
           disabled={tasks.done.length === 0}
         >
@@ -58,15 +46,6 @@ export default function TodosFilter({
         <Button
           size="small"
           className={activeFilter === 'done' ? 'completed' : 'unselected'}
-          endIcon={
-            <TasksDoneIcon
-              className={
-                tasks.done.length === 0
-                  ? `text-gray-300 w-4 h-4`
-                  : 'text-gray-800 w-4 h-4'
-              }
-            />
-          }
           onClick={() => setActiveFilter('done')}
           disabled={tasks.todo.length === 0}
         >

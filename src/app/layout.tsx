@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { inter } from '@/app/fonts';
 import '@/app/global.css';
-import { SnackbarProvider } from '@/providers/snackbar-context';
+import { Providers } from '@/providers';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       {/* Remove the max-w-screen-sm from here when GUI for larger screens are being implemented */}
       <body className={`${inter.className} antialiased max-w-screen-sm mx-auto`}>  
-        <SnackbarProvider>{children}</SnackbarProvider>
+        <Providers>{children}</Providers>
         <div className="modal-container z-40"></div>
       </body>
     </html>

@@ -8,7 +8,7 @@ import CalendarWithTodos from '@/components/scheduled/calendar/CalendarWithTodos
 interface CalendarModalProps {
   handleModalClose: () => void;
   handleDateChange: (date: Date) => void;
-  todos: Todo[];
+  todos?: Todo[]; // Passed in when user wants to filter his/her scheduled dates to filter which dates are selectable.
   selectedDate: Date | null;
   isNew: boolean;
   modalHeader: string;

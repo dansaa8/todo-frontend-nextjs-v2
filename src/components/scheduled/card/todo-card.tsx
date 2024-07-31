@@ -6,7 +6,7 @@ import { Todo } from '@/lib/definitions';
 import TimeBadge from '@/components/scheduled/card/time-badge';
 import HamburgerMenu from '@/components/scheduled/card/hamburger-menu';
 import CheckMarkIcon from '@/components/svg/checkmark-icon';
-import * as actions from '@/actions/index';
+import * as actions from '@/actions/todo/index';
 import UndoIcon from '@/components/svg/undo-icon';
 import ActionModal from '@/components/scheduled/card/ActionModal';
 import FormButton from '@/components/common/FormButton';
