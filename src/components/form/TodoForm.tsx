@@ -15,6 +15,9 @@ import { useState, useEffect } from 'react';
 import CalendarModal from '@/components/scheduled/calendar/CalendarModal';
 import dayjs, { Dayjs } from 'dayjs';
 import AddIcon from '@mui/icons-material/Add';
+import CheckMarkIcon from '@/components/svg/checkmark-icon';
+import { useSnackbar } from '@/providers/snackbar-context';
+
 
 interface TodoFormProps {
   todo?: Todo; // Passed in as a parameter when editing a todo
@@ -29,6 +32,8 @@ export default function TodoForm({ todo }: TodoFormProps) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [showCalendarModal, setShowCalendarModal] = useState(false);
+  const { showSnackbar } = useSnackbar();
+
 
   useEffect(() => {
     if (todo) {
@@ -50,12 +55,18 @@ export default function TodoForm({ todo }: TodoFormProps) {
     return date.isSame(today, 'day') || date.isAfter(today);
   };
 
+  const handleSubmit = async (formData: FormData) => {
+    await action(formData);
+    const snackbarMessage = todo ? `Todo ${name} was updated.` : `Todo ${name} was added.`;
+    showSnackbar(snackbarMessage);
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="zh-cn">
       <div className="flex justify-center flex-grow">
-        <div className='bg-gray-100 border border-gray-300 rounded max-w-96 m-2'>
+        <div className="bg-gray-100 border border-gray-300 rounded max-w-96 m-2">
           <form
-            action={action}
+            action={handleSubmit}
             className="px-2 pb-2 flex flex-col flex-start justify-between gap-1 h-full max-h-[750px]"
           >
             <h1 className="text-center font-bold text-xl py-6 h-20 border-b-1">
@@ -133,13 +144,23 @@ export default function TodoForm({ todo }: TodoFormProps) {
               </div>
             </div>
             <FormErrorMessage>{formState.message}</FormErrorMessage>
-            <FormButton
-              className="rounded p-2 bg-amber-300 min-h-12 max-h-20 grow"
-              pendingText="Adding new Todo..."
+            {todo ? (
+              <FormButton
+                className="rounded-md p-2 bg-lime-400  min-h-12 max-h-20 grow"
+                pendingText="Saving changes..."
+              >
+                Save Changes
+                <CheckMarkIcon />
+              </FormButton>
+            ) : (
+              <FormButton
+              className="rounded-md p-2 bg-sky-400  min-h-12 max-h-20 grow"
+              pendingText="Adding Todo..."
             >
+              Add Todo
               <AddIcon />
-              {todo ? 'Update Todo' : 'Add Todo'}
             </FormButton>
+            )}
           </form>
         </div>
       </div>
