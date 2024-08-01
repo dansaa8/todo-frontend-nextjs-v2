@@ -31,7 +31,7 @@ export async function createTodo(
     }
   }
   revalidatePath('/todo/scheduled');
-  redirect('/todo/scheduled');
+  return {message : 'SUCCESS'}
 }
 
 export async function updateTodo(
@@ -61,7 +61,7 @@ export async function updateTodo(
     }
   }
   revalidatePath('/todo/scheduled');
-  redirect('/todo/scheduled');
+  return {message : 'SUCCESS'}
 }
 
 export async function deleteTodo(formData: FormData) {
